@@ -3,11 +3,11 @@
             console.log('Switching to page:', pageName);
             const pages = document.querySelectorAll('.page');
             pages.forEach(page => page.classList.remove('active'));
-            
+
             const targetPage = document.getElementById(pageName);
             if (targetPage) {
                 targetPage.classList.add('active');
-                
+
                 // Special handling for leaderboard page
                 if (pageName === 'leaderboard') {
                     console.log('Leaderboard page activated, ensuring visibility');
@@ -18,14 +18,14 @@
                         leaderboard.style.transform = 'translateY(0)';
                         console.log('Leaderboard visibility ensured');
                     }
-                    
+
                     // Trigger intersection observer for leaderboard elements
                     const leaderboardElements = targetPage.querySelectorAll('.leaderboard, .stat-card, .achievement-card, .prize-card, .course-card');
                     leaderboardElements.forEach(el => {
                         el.style.opacity = '1';
                         el.style.transform = 'translateY(0)';
                     });
-                    
+
                     // If we have data, ensure leaderboard is updated
                     if (participantsData && participantsData.length > 0) {
                         console.log('Data available, updating leaderboard on page switch');
@@ -36,7 +36,7 @@
                     }
                 }
             }
-            
+
             const navLinks = document.querySelectorAll('.nav-link');
             navLinks.forEach(link => {
                 link.classList.remove('active');
@@ -44,7 +44,7 @@
                     link.classList.add('active');
                 }
             });
-            
+
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -56,12 +56,12 @@
             particle.style.animationDuration = (Math.random() * 3 + 2) + 's';
             particle.style.animationDelay = Math.random() * 2 + 's';
             particle.style.animation = 'particle-float ' + (Math.random() * 5 + 5) + 's ease-in infinite';
-            
+
             const colors = ['#3b82f6', '#0891b2', '#8b5cf6', '#06b6d4'];
             particle.style.background = colors[Math.floor(Math.random() * colors.length)];
-            
+
             document.body.appendChild(particle);
-            
+
             setTimeout(() => {
                 particle.remove();
             }, 10000);
@@ -72,22 +72,22 @@
         // Add 3D tilt effect to cards
         document.addEventListener('DOMContentLoaded', function() {
             const cards = document.querySelectorAll('.stat-card, .achievement-card, .prize-card');
-            
+
             cards.forEach(card => {
                 card.addEventListener('mousemove', (e) => {
                     const rect = card.getBoundingClientRect();
                     const x = e.clientX - rect.left;
                     const y = e.clientY - rect.top;
-                    
+
                     const centerX = rect.width / 2;
                     const centerY = rect.height / 2;
-                    
+
                     const rotateX = (y - centerY) / 10;
                     const rotateY = (centerX - x) / 10;
-                    
+
                     card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px) scale(1.02)`;
                 });
-                
+
                 card.addEventListener('mouseleave', () => {
                     card.style.transform = '';
                 });
@@ -121,30 +121,30 @@
         function readExcelFile(file) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
-                
+
                 reader.onload = function(e) {
                     try {
                         const data = new Uint8Array(e.target.result);
                         const workbook = XLSX.read(data, { type: 'array' });
-                        
+
                         // Get the first worksheet
                         const firstSheetName = workbook.SheetNames[0];
                         const worksheet = workbook.Sheets[firstSheetName];
-                        
+
                         // Convert to JSON
                         const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-                        
+
                         console.log('Excel data loaded:', jsonData);
                         resolve(jsonData);
                     } catch (error) {
                         reject(error);
                     }
                 };
-                
+
                 reader.onerror = function() {
                     reject(new Error('Failed to read file'));
                 };
-                
+
                 reader.readAsArrayBuffer(file);
             });
         }
@@ -155,24 +155,24 @@
                 console.error('Invalid Excel data');
                 return [];
             }
-            
+
             const headers = excelData[0];
             console.log('Excel headers:', headers);
-            
+
             const participants = [];
-            
+
             // Start from second row (index 1) as requested
             for (let i = 1; i < excelData.length; i++) {
                 const row = excelData[i];
                 if (row.length === 0 || !row[0]) continue; // Skip empty rows
-                
+
                 const participant = {};
-                
+
                 // Map Excel columns to our format
                 headers.forEach((header, index) => {
                     if (header && row[index] !== undefined) {
                         const cleanHeader = header.toString().trim().toLowerCase();
-                        
+
                         // Map common column names
                         if (cleanHeader.includes('name') || cleanHeader.includes('student')) {
                             participant.Name = row[index].toString().trim();
@@ -198,7 +198,7 @@
                         }
                     }
                 });
-                
+
                 // Ensure required fields have default values
                 if (!participant.Name) participant.Name = `Participant ${i}`;
                 if (!participant.College) participant.College = 'WCE Sangli';
@@ -206,10 +206,10 @@
                 if (!participant.Progress) participant.Progress = 0;
                 if (!participant.Streak) participant.Streak = 0;
                 if (!participant.Rank) participant.Rank = i;
-                
+
                 participants.push(participant);
             }
-            
+
             console.log('Processed participants:', participants);
             return participants;
         }
@@ -218,42 +218,42 @@
         async function loadExcelFileAutomatically() {
             try {
                 console.log('Loading JSON data automatically...');
-                
+
                 // Try to fetch the processed JSON file first
                 const response = await fetch('participants_data.json');
                 if (!response.ok) {
                     throw new Error('JSON file not found, trying Excel...');
                 }
-                
+
                 const jsonData = await response.json();
                 console.log('JSON data loaded:', jsonData);
                 console.log('JSON data length:', jsonData.length);
-                
+
                 // Use the JSON data directly
                 participantsData = jsonData;
                 filteredData = [...participantsData];
-                
+
                 console.log('Processed participants data:', participantsData);
                 console.log('Processed participants count:', participantsData.length);
-                
+
                 // Calculate stats first
                 calculateStats();
                 console.log('Stats calculated:', statsData);
-                
+
                 // Update leaderboard
                 console.log('Updating leaderboard...');
                 updateLeaderboard();
-                
+
                 // Update stats cards
                 console.log('Updating stats cards...');
                 updateStatsCards();
-                
+
                 // Update leaderboard stats
                 console.log('Updating leaderboard stats...');
                 updateLeaderboardStats();
-                
+
                 console.log('JSON data loaded successfully:', participantsData);
-                
+
             } catch (error) {
                 console.error('Error loading JSON file:', error);
                 console.log('Falling back to CSV data...');
@@ -269,18 +269,18 @@
                 const response = await fetch('participants_data_processed.csv');
                 const csvText = await response.text();
                 console.log('CSV text loaded:', csvText.substring(0, 200) + '...');
-                
+
                 participantsData = parseCSV(csvText);
                 filteredData = [...participantsData];
-                
+
                 console.log('Parsed CSV data:', participantsData);
                 console.log('Parsed CSV count:', participantsData.length);
-                
+
                 calculateStats();
                 updateLeaderboard();
                 updateStatsCards();
                 updateLeaderboardStats();
-                
+
                 console.log('CSV data loaded successfully:', participantsData);
             } catch (error) {
                 console.error('Error loading CSV data:', error);
@@ -330,7 +330,7 @@
             const lines = csvText.split('\n');
             const headers = lines[0].split(',');
             const data = [];
-            
+
             // Start from second row (index 1) as requested
             for (let i = 1; i < lines.length; i++) {
                 if (lines[i].trim()) {
@@ -339,7 +339,7 @@
                     headers.forEach((header, index) => {
                         const cleanHeader = header.trim();
                         const value = values[index] ? values[index].trim() : '';
-                        
+
                         // Convert numeric fields appropriately
                         if (cleanHeader === 'Badges' || cleanHeader === 'Streak' || cleanHeader === 'Progress' || cleanHeader === 'Rank' || cleanHeader === 'ModulesCompleted') {
                             row[cleanHeader] = parseInt(value) || 0;
@@ -358,17 +358,17 @@
         // Function to calculate statistics from CSV data
         function calculateStats() {
             if (participantsData.length === 0) return;
-            
+
             const totalParticipants = participantsData.length;
             const totalBadges = participantsData.reduce((sum, participant) => sum + parseInt(participant.Badges || 0), 0);
             const avgProgress = participantsData.reduce((sum, participant) => sum + parseInt(participant.Progress || 0), 0) / totalParticipants;
             const activeToday = Math.floor(totalParticipants * 0.75); // Estimate 75% active
             const completionRate = Math.floor(avgProgress);
-            
+
             // Calculate average time per badge from TotalHours if available
             const totalHours = participantsData.reduce((sum, participant) => sum + parseFloat(participant.TotalHours || 0), 0);
             const avgTimePerBadge = totalBadges > 0 ? (totalHours / totalBadges).toFixed(1) + 'h' : '2.3h';
-            
+
             statsData = {
                 totalParticipants,
                 activeToday,
@@ -384,7 +384,7 @@
         function sortData(data, sortBy, direction) {
             return data.sort((a, b) => {
                 let aVal, bVal;
-                
+
                 switch(sortBy) {
                     case 'badges':
                         aVal = parseInt(a.Badges || 0);
@@ -434,7 +434,7 @@
                             return bProgress - aProgress;
                         }
                 }
-                
+
                 if (direction === 'asc') {
                     return aVal > bVal ? 1 : aVal < bVal ? -1 : 0;
                 } else {
@@ -458,17 +458,17 @@
         function filterData(searchTerm) {
             console.log('Filtering data with search term:', searchTerm);
             console.log('Participants data available:', participantsData ? participantsData.length : 'undefined');
-            
+
             if (!participantsData || participantsData.length === 0) {
                 console.warn('No participants data available for filtering');
                 return;
             }
-            
+
             if (!searchTerm) {
                 filteredData = [...participantsData];
                 console.log('Reset to all participants:', filteredData.length);
             } else {
-                filteredData = participantsData.filter(participant => 
+                filteredData = participantsData.filter(participant =>
                     participant.Name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                     participant.College.toLowerCase().includes(searchTerm.toLowerCase())
                 );
@@ -482,37 +482,37 @@
             try {
                 console.log('Updating leaderboard with data:', filteredData);
                 console.log('Filtered data length:', filteredData ? filteredData.length : 'undefined');
-                
+
                 const tbody = document.getElementById('leaderboardBody');
                 if (!tbody) {
                     console.error('Leaderboard body not found!');
                     return;
                 }
-                
+
                 // Don't clear the leaderboard if we don't have data yet
                 if (!filteredData || filteredData.length === 0) {
                     console.log('No filtered data available, keeping existing content');
                     return;
                 }
-                
+
                 console.log('Processing', filteredData.length, 'participants for leaderboard');
-                
+
                 tbody.innerHTML = '';
-                
+
                 // Sort the filtered data by badges first (default ranking)
                 const sortedData = sortData([...filteredData], currentSort, sortDirection);
-                
+
                 // Calculate proper rankings based on performance
                 let currentRank = 1;
-                
+
                 sortedData.forEach((participant, index) => {
                     const row = document.createElement('tr');
                     row.style.animationDelay = `${index * 0.05}s`;
-                    
+
                     const badges = parseInt(participant.Badges || 0);
                     const progress = parseInt(participant.Progress || 0);
                     const isCompleted = badges >= 20 && progress >= 100;
-                    
+
                     // Calculate proper rank - only increment if performance is different
                     if (index > 0) {
                         const prevParticipant = sortedData[index - 1];
@@ -520,7 +520,7 @@
                         const prevProgress = parseInt(prevParticipant.Progress || 0);
                         const prevStreak = parseInt(prevParticipant.Streak || 0);
                         const currentStreak = parseInt(participant.Streak || 0);
-                        
+
                         if (currentSort === 'badges') {
                             if (badges !== prevBadges) {
                                 currentRank = index + 1;
@@ -543,7 +543,7 @@
                             }
                         }
                     }
-                    
+
                     // Determine rank display and styling
                     let rankDisplay, rankClass;
                     if (badges >= 20 && progress >= 100) {
@@ -568,10 +568,10 @@
                         rankDisplay = `#${currentRank}`;
                         rankClass = 'rank-number';
                     }
-                    
+
                     // Badge completion percentage
                     const badgePercentage = Math.round((badges / 20) * 100);
-                    
+
                     row.innerHTML = `
                         <td data-label="Rank: "><span class="${rankClass}">${rankDisplay}</span></td>
                         <td data-label="Name: "><span class="name">${participant.Name}</span></td>
@@ -584,13 +584,12 @@
                                 <div style="font-size: 12px; color: var(--text-muted);">${badgePercentage}%</div>
                             </div>
                         </td>
-                        <td data-label="Streak: "><span class="streak-tag">${participant.Streak} days</span></td>
                         <td data-label="Progress: "><div class="progress-cell"><div class="progress-bar-small"><div class="progress-fill-small" style="width: ${participant.Progress}%;"></div></div><span class="progress-text">${participant.Progress}%</span></div></td>
                     `;
-                    
+
                     tbody.appendChild(row);
                 });
-                
+
                 console.log('Leaderboard updated successfully with', sortedData.length, 'rows');
             } catch (error) {
                 console.error('Error updating leaderboard:', error);
@@ -615,43 +614,43 @@
                     console.log('No participants data available for stats');
                     return;
                 }
-                
+
                 console.log('Updating leaderboard stats with', participantsData.length, 'participants');
-                
+
                 const completedCount = participantsData.filter(p => parseInt(p.Badges || 0) >= 20 && parseInt(p.Progress || 0) >= 100).length;
                 const highPerformers = participantsData.filter(p => parseInt(p.Badges || 0) >= 15).length;
                 const avgBadges = Math.round(participantsData.reduce((sum, p) => sum + parseInt(p.Badges || 0), 0) / participantsData.length);
                 const totalHours = participantsData.reduce((sum, p) => sum + parseFloat(p.TotalHours || 0), 0);
-                
+
                 console.log('Stats calculated:', { completedCount, highPerformers, avgBadges, totalHours });
-                
+
                 // Update the leaderboard stats display
                 const totalParticipantsEl = document.getElementById('totalParticipants');
                 const completedParticipantsEl = document.getElementById('completedParticipants');
                 const avgProgressEl = document.getElementById('avgProgress');
                 const totalBadgesEl = document.getElementById('totalBadges');
-                
+
                 if (totalParticipantsEl) {
                     totalParticipantsEl.textContent = participantsData.length;
                     console.log('Updated total participants:', participantsData.length);
                 } else {
                     console.warn('totalParticipants element not found');
                 }
-                
+
                 if (completedParticipantsEl) {
                     completedParticipantsEl.textContent = completedCount;
                     console.log('Updated completed participants:', completedCount);
                 } else {
                     console.warn('completedParticipants element not found');
                 }
-                
+
                 if (avgProgressEl) {
                     avgProgressEl.textContent = avgBadges + ' badges';
                     console.log('Updated avg progress:', avgBadges + ' badges');
                 } else {
                     console.warn('avgProgress element not found');
                 }
-                
+
                 if (totalBadgesEl) {
                     totalBadgesEl.textContent = Math.round(totalHours) + ' hrs';
                     console.log('Updated total badges:', Math.round(totalHours) + ' hrs');
@@ -677,7 +676,7 @@
         // Function to update statistics cards with CSV data
         function updateStatsCards() {
             if (!statsData || Object.keys(statsData).length === 0) return;
-            
+
             const statCards = document.querySelectorAll('.stat-card');
             const statValues = [
                 statsData.totalParticipants,
@@ -687,7 +686,7 @@
                 statsData.avgTimePerBadge,
                 statsData.completionRate + '%'
             ];
-            
+
             statCards.forEach((card, index) => {
                 const valueElement = card.querySelector('.stat-value');
                 if (valueElement && statValues[index]) {
@@ -699,11 +698,11 @@
         window.addEventListener('DOMContentLoaded', () => {
             console.log('DOM Content Loaded');
             switchPage('home');
-            
+
             // Add event listeners for leaderboard controls
             const sortSelect = document.getElementById('sortBy');
             const searchInput = document.getElementById('searchInput');
-            
+
             if (sortSelect) {
                 sortSelect.addEventListener('change', (e) => {
                     currentSort = e.target.value;
@@ -711,7 +710,7 @@
                     updateLeaderboard();
                 });
             }
-            
+
             if (searchInput) {
                 searchInput.addEventListener('input', (e) => {
                     console.log('Search input changed:', e.target.value);
@@ -723,7 +722,7 @@
                     }
                 });
             }
-            
+
             const animatedElements = document.querySelectorAll('.stat-card, .achievement-card, .prize-card, .course-card, .leaderboard');
             animatedElements.forEach(el => {
                 el.style.opacity = '0';
@@ -731,7 +730,7 @@
                 el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
                 observer.observe(el);
             });
-            
+
             // Special handling for leaderboard - ensure it's visible when data is loaded
             const leaderboardElement = document.querySelector('.leaderboard');
             if (leaderboardElement) {
@@ -747,7 +746,7 @@
                     }, 50);
                 };
             }
-            
+
             // Load data after a short delay to ensure DOM is fully ready
             setTimeout(() => {
                 console.log('Starting data load...');

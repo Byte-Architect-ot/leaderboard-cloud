@@ -1,26 +1,165 @@
 Name,College,Email,Badges,Streak,Progress,Rank,CompletionDate,LastActivity,TotalHours,ModulesCompleted
-Aarav Kulkarni,WCE Sangli,aarav.kulkarni@wce.ac.in,20,11,100,1,2024-12-15,2024-12-15,45.5,5
-Diya Patil,WCE Sangli,diya.patil@wce.ac.in,20,14,100,2,2024-12-14,2024-12-15,42.3,5
-Arjun Deshmukh,WCE Sangli,arjun.deshmukh@wce.ac.in,19,12,95,3,2024-12-16,2024-12-15,38.7,4
-Isha Jadhav,WCE Sangli,isha.jadhav@wce.ac.in,19,9,90,4,2024-12-17,2024-12-15,36.2,4
-Vihaan Kale,WCE Sangli,vihaan.kale@wce.ac.in,18,10,90,5,2024-12-18,2024-12-15,34.8,4
-Priya Sharma,WCE Sangli,priya.sharma@wce.ac.in,18,8,85,6,2024-12-19,2024-12-15,32.1,4
-Rohan Patil,WCE Sangli,rohan.patil@wce.ac.in,17,7,80,7,2024-12-20,2024-12-15,29.6,3
-Ananya Singh,WCE Sangli,ananya.singh@wce.ac.in,17,6,80,8,2024-12-21,2024-12-15,28.9,3
-Karthik Reddy,WCE Sangli,karthik.reddy@wce.ac.in,16,5,75,9,2024-12-22,2024-12-15,26.4,3
-Sneha Joshi,WCE Sangli,sneha.joshi@wce.ac.in,16,4,75,10,2024-12-23,2024-12-15,25.7,3
-Rajesh Kumar,WCE Sangli,rajesh.kumar@wce.ac.in,15,3,70,11,2024-12-24,2024-12-15,23.2,3
-Meera Desai,WCE Sangli,meera.desai@wce.ac.in,15,2,70,12,2024-12-25,2024-12-15,22.5,3
-Akash Gupta,WCE Sangli,akash.gupta@wce.ac.in,14,1,65,13,2024-12-26,2024-12-15,20.8,2
-Pooja Shah,WCE Sangli,pooja.shah@wce.ac.in,14,1,65,14,2024-12-27,2024-12-15,19.3,2
-Vikram Singh,WCE Sangli,vikram.singh@wce.ac.in,13,1,60,15,2024-12-28,2024-12-15,17.6,2
-Neha Agarwal,WCE Sangli,neha.agarwal@wce.ac.in,12,1,55,16,2024-12-29,2024-12-15,16.2,2
-Rahul Verma,WCE Sangli,rahul.verma@wce.ac.in,11,1,50,17,2024-12-30,2024-12-15,14.7,2
-Sakshi Tiwari,WCE Sangli,sakshi.tiwari@wce.ac.in,10,1,45,18,2024-12-31,2024-12-15,13.1,2
-Ajay Mehta,WCE Sangli,ajay.mehta@wce.ac.in,9,1,40,19,2025-01-01,2024-12-15,11.8,1
-Kavya Nair,WCE Sangli,kavya.nair@wce.ac.in,8,1,35,20,2025-01-02,2024-12-15,10.4,1
-Rohit Sharma,WCE Sangli,rohit.sharma@wce.ac.in,7,1,30,21,2025-01-03,2024-12-15,9.2,1
-Priyanka Patel,WCE Sangli,priyanka.patel@wce.ac.in,6,1,25,22,2025-01-04,2024-12-15,8.1,1
-Suresh Kumar,WCE Sangli,suresh.kumar@wce.ac.in,5,1,20,23,2025-01-05,2024-12-15,7.3,1
-Anita Singh,WCE Sangli,anita.singh@wce.ac.in,4,1,15,24,2025-01-06,2024-12-15,6.5,1
-Manoj Tiwari,WCE Sangli,manoj.tiwari@wce.ac.in,3,1,10,25,2025-01-07,2024-12-15,5.8,1
+Prerana Shahaji Chavan,WCE Sangli,prerana.chavan428193@gmail.com,19,30,95,1,,,47.5,19
+Vivek Pandurang Jadhav,WCE Sangli,cloudcamp2025@gmail.com,10,20,50,2,,,25.0,10
+Yash Savalkar,WCE Sangli,yashsavalkar05@gmail.com,8,16,40,3,,,20.0,8
+Piyush Dawkhare,WCE Sangli,piyushcloud2k25@gmail.com,6,12,30,4,,,15.0,6
+Afnan Shakil Sayyad,WCE Sangli,afnansayyad01@gmail.com,5,10,25,5,,,12.5,5
+Sumit Phalke,WCE Sangli,sumitphalke1228@gmail.com,5,10,25,6,,,12.5,5
+Siddheshwar Pratap Budge,WCE Sangli,proxysiddy.5050@gmail.com,4,8,20,7,,,10.0,4
+Yogesh Raina,WCE Sangli,rainayogesh804@gmail.com,3,6,15,8,,,7.5,3
+Shambhu Vitthal Gaikwad,WCE Sangli,shambhuzzz28@gmail.com,2,4,10,9,,,5.0,2
+harshad bajirao khatale,WCE Sangli,harshadkhatale58@gmail.com,1,2,5,10,,,2.5,1
+Shreyash Premendra Olambe,WCE Sangli,shreyash140706@gmail.com,1,2,5,11,,,2.5,1
+Ankit saini,WCE Sangli,gdgcloud27@gmail.com,1,2,5,12,,,2.5,1
+Monika Saini,WCE Sangli,ankitgdgcloud001@gmail.com,1,2,5,13,,,2.5,1
+Dhanraj jadhav,WCE Sangli,djcloudc2025@gmail.com,1,2,5,14,,,2.5,1
+Madanraj Yuvraj Sagar,WCE Sangli,sagarmadanraj60@gmail.com,1,2,5,15,,,2.5,1
+Shivam H,WCE Sangli,shpatil1110@gmail.com,1,2,5,16,,,2.5,1
+Devang Milind Rane,WCE Sangli,ranedev1434@gmail.com,1,2,5,17,,,2.5,1
+Priyanka Kulkarni,WCE Sangli,priaarya14@gmail.com,0,1,0,18,,,0.5,0
+Abhijeet K,WCE Sangli,gdglead115@gmail.com,0,1,0,19,,,0.5,0
+Alok K,WCE Sangli,alokgdg25@gmail.com,0,1,0,20,,,0.5,0
+Saloni Sawant,WCE Sangli,salonisawant51224@gmail.com,0,1,0,21,,,0.5,0
+Aditya Mahadev Jaybhaye,WCE Sangli,adityajaybhaye757@gmail.com,0,1,0,22,,,0.5,0
+Sumit farande,WCE Sangli,sumitfarande115@gmail.com,0,1,0,23,,,0.5,0
+Aditya Kumar Singh,WCE Sangli,aditya248109066@gmail.com,0,1,0,24,,,0.5,0
+Prerana Amol Patil,WCE Sangli,preru2745@gmail.com,0,1,0,25,,,0.5,0
+Atharv Ajit Gaikwad,WCE Sangli,atharvgdg10@gmail.com,0,1,0,26,,,0.5,0
+Tejas Ramesh Yete,WCE Sangli,tejas77gdg@gmail.com,0,1,0,27,,,0.5,0
+Rutuj prabhakar kakde,WCE Sangli,rutujkakde25@gmail.com,0,1,0,28,,,0.5,0
+Anushka Jain,WCE Sangli,anushkajain601191@gmail.com,0,1,0,29,,,0.5,0
+Vickey Kulkarni,WCE Sangli,abhivick5893@gmail.com,0,1,0,30,,,0.5,0
+Snehal Dhanaji Patil,WCE Sangli,patilsnehal1931@gmail.com,0,1,0,31,,,0.5,0
+Harsha Mendhe,WCE Sangli,harshamendhe300@gmail.com,0,1,0,32,,,0.5,0
+Harshada Maruti Shinde,WCE Sangli,harshadas3333@gmail.com,0,1,0,33,,,0.5,0
+Kalyani Umashankar Nagthane,WCE Sangli,nagthanekalyani20@gmail.com,0,1,0,34,,,0.5,0
+Shruti Balasaheb Patil,WCE Sangli,s.patil.gdg@gmail.com,0,1,0,35,,,0.5,0
+Samruddhi Sunil Khot,WCE Sangli,samgdg2025@gmail.com,0,1,0,36,,,0.5,0
+Vipul Vijay Surve,WCE Sangli,surve2711@gmail.com,0,1,0,37,,,0.5,0
+Rajvardhan Sambhaji Patil,WCE Sangli,patilrajvardhan870@gmail.com,0,1,0,38,,,0.5,0
+Om Mohan Galande,WCE Sangli,omgalande70@gmail.com,0,1,0,39,,,0.5,0
+Yash Milind Mulay,WCE Sangli,yashmulay0511@gmail.com,0,1,0,40,,,0.5,0
+Anuj Sanjay Pisal,WCE Sangli,anujpisal1703@gmail.com,0,1,0,41,,,0.5,0
+Nilay Sachin Potdukhe,WCE Sangli,nilaygcp@gmail.com,0,1,0,42,,,0.5,0
+Soham Kushal Kanhav,WCE Sangli,sohamgdg2k25@gmail.com,0,1,0,43,,,0.5,0
+Bhuvnesh Y,WCE Sangli,bhuvibhai2004@gmail.com,0,1,0,44,,,0.5,0
+Atharva Santosh Sanganwar,WCE Sangli,atharvasanganwar02@gmail.com,0,1,0,45,,,0.5,0
+Abhijeet Bharat Shejul,WCE Sangli,shejulabhijeet4@gmail.com,0,1,0,46,,,0.5,0
+Gajanan Ramesh Domatwar,WCE Sangli,gajanandomatwar7@gmail.com,0,1,0,47,,,0.5,0
+Yash Kirankumar Chinchkar,WCE Sangli,onlyuseless00004@gmail.com,0,1,0,48,,,0.5,0
+Atharva Pravin Dhokane,WCE Sangli,atharvadhokane2006@gmail.com,0,1,0,49,,,0.5,0
+Shruti Keshav Pawar,WCE Sangli,shrutipawar8055@gmail.com,0,1,0,50,,,0.5,0
+Avadhut mali,WCE Sangli,maliavadhut15@gmail.com,0,1,0,51,,,0.5,0
+Soham Balu Mahure,WCE Sangli,sohammahure05@gmail.com,0,1,0,52,,,0.5,0
+Yashraj Suhas Rane,WCE Sangli,raneyashraj104@gmail.com,0,1,0,53,,,0.5,0
+Shubhada Ravindra Tak,WCE Sangli,shubhadatak36@gmail.com,0,1,0,54,,,0.5,0
+Onkar Damale,WCE Sangli,onxar857@gmail.com,0,1,0,55,,,0.5,0
+Anurag Sunil Yadav,WCE Sangli,anuabhi220724@gmail.com,0,1,0,56,,,0.5,0
+Mahi Ganesh Baghele,WCE Sangli,baghelemahi85@gmail.com,0,1,0,57,,,0.5,0
+Piyush Kulkarni,WCE Sangli,piyushcloud2k@gmail.com,0,1,0,58,,,0.5,0
+PATIL ANUSHKA DATTATRAY,WCE Sangli,anushkapatil.10.13@gmail.com,0,1,0,59,,,0.5,0
+Piyush Anilrao Bile,WCE Sangli,piyushbile45@gmail.com,0,1,0,60,,,0.5,0
+Samruddhi sharad bhosale,WCE Sangli,samruddhibhosale166@gmail.com,0,1,0,61,,,0.5,0
+Chinmay Nitin Kulkarni,WCE Sangli,kulkarnichinmay1645@gmail.com,0,1,0,62,,,0.5,0
+Sakshi Sambhaji Bhosale,WCE Sangli,sakshibhosalecloud12@gmail.com,0,1,0,63,,,0.5,0
+Nikhil Choudhary,WCE Sangli,rajc2538@gmail.com,0,1,0,64,,,0.5,0
+Neil Bhupalsingh Sulhyan,WCE Sangli,walianeil10@gmail.com,0,1,0,65,,,0.5,0
+Ishaan dhar,WCE Sangli,ishaandhar04@gmail.com,0,1,0,66,,,0.5,0
+Simran Ismail Sande,WCE Sangli,simransande047@gmail.com,0,1,0,67,,,0.5,0
+Kavita Balkrishna Pujari,WCE Sangli,kavitapujari188@gmail.com,0,1,0,68,,,0.5,0
+Aniruddha Digambar Mane,WCE Sangli,mane258109039@gmail.com,0,1,0,69,,,0.5,0
+Suyash Santosh Jankar,WCE Sangli,sweshswesh31@gmail.com,0,1,0,70,,,0.5,0
+Chaitanya Shripad Patil,WCE Sangli,cspatil00003@gmail.com,0,1,0,71,,,0.5,0
+Ashutosh Ananda Shingan,WCE Sangli,ashutoshshingan009@gmail.com,0,1,0,72,,,0.5,0
+Shriraj Shrikant Manepatil,WCE Sangli,shrirajshrikantmanepatil2007@gmail.com,0,1,0,73,,,0.5,0
+Rishika Pankaj Rajput,WCE Sangli,rishikarajput261@gmail.com,0,1,0,74,,,0.5,0
+Shravan Sagar Jadhav,WCE Sangli,shra1210806@gmail.com,0,1,0,75,,,0.5,0
+Sai Mandar Badave,WCE Sangli,saimandarbadave@gmail.com,0,1,0,76,,,0.5,0
+Prajyot Ramnath Nakade,WCE Sangli,prajyotnakade982005@gmail.com,0,1,0,77,,,0.5,0
+Kuntal Sunil Madavi,WCE Sangli,madavikuntal@gmail.com,0,1,0,78,,,0.5,0
+Aditya Mahesh Baldawa,WCE Sangli,adityabaldawa70@gmail.com,0,1,0,79,,,0.5,0
+Tanvi Girish Diwan,WCE Sangli,tan492344@gmail.com,0,1,0,80,,,0.5,0
+Swaroop Sampatrao Phatak,WCE Sangli,swaroopphatak27@gmail.com,0,1,0,81,,,0.5,0
+Rugved Ashish Ganapule,WCE Sangli,rugvedganapule.gdg@gmail.com,0,1,0,82,,,0.5,0
+Ayush Satish Gole,WCE Sangli,ayushgole0208@gmail.com,0,1,0,83,,,0.5,0
+AADITYA SHIRKE,WCE Sangli,asworkss07@gmail.com,0,1,0,84,,,0.5,0
+Siddharth Shankar Swami,WCE Sangli,siddharthswami2005@gmail.com,0,1,0,85,,,0.5,0
+Tushar Tanaji Kurade,WCE Sangli,kuradetushar61@gmail.com,0,1,0,86,,,0.5,0
+Kedar Somnath Dhotre,WCE Sangli,kd.cloudcampaign@gmail.com,0,1,0,87,,,0.5,0
+Onkar Gunaji Rane,WCE Sangli,omrane.dev.317@gmail.com,0,1,0,88,,,0.5,0
+Reva Meshram,WCE Sangli,revameshramnew@gmail.com,0,1,0,89,,,0.5,0
+Zaid Pathan,WCE Sangli,hcavil5501@gmail.com,0,1,0,90,,,0.5,0
+Saharsh Khalokar,WCE Sangli,saharshkhalokar968@gmail.com,0,1,0,91,,,0.5,0
+Piyush Vilas Rajurkar,WCE Sangli,piyushrajurkar354@gmail.com,0,1,0,92,,,0.5,0
+Sahil Tukaram Patil,WCE Sangli,sahilbang003@gmail.com,0,1,0,93,,,0.5,0
+Aryan Ajit Desai,WCE Sangli,aryandesai248@gmail.com,0,1,0,94,,,0.5,0
+Tanish Ashok Bhongade,WCE Sangli,bhongade.tanish@gmail.com,0,1,0,95,,,0.5,0
+Naresh Rajendra Adhe,WCE Sangli,adhe10072@gmail.com,0,1,0,96,,,0.5,0
+Hanamant Sharanappa Halsangi,WCE Sangli,hanam23510100@gmail.com,0,1,0,97,,,0.5,0
+Pawan Mahadeo Lavate,WCE Sangli,dummy23510050@gmail.com,0,1,0,98,,,0.5,0
+Arindam Bombade,WCE Sangli,abbombade@gmail.com,0,1,0,99,,,0.5,0
+SHYAMSUNDAR GITTE,WCE Sangli,shyamsundargdg@gmail.com,0,1,0,100,,,0.5,0
+Sudharshan Shinde,WCE Sangli,sudarshanganesh18@gmail.com,0,1,0,101,,,0.5,0
+Tejas Dhembe,WCE Sangli,dhembetejas@gmail.com,0,1,0,102,,,0.5,0
+Dipak prakash rathod,WCE Sangli,dipakprakashrathod2025@gmail.com,0,1,0,103,,,0.5,0
+Sameer Jamkar,WCE Sangli,sameerjamkar2005@gmail.com,0,1,0,104,,,0.5,0
+Shreyash Magdum,WCE Sangli,magadumshreyas02@gmail.com,0,1,0,105,,,0.5,0
+Suyash Pasare,WCE Sangli,suyashpasare2330@gmail.com,0,1,0,106,,,0.5,0
+Rayhan Fayyaz Parkar,WCE Sangli,ray420680@gmail.com,0,1,0,107,,,0.5,0
+Gaurav Mane,WCE Sangli,gauravmane8008@gmail.com,0,1,0,108,,,0.5,0
+Vaishnavi phatak,WCE Sangli,vaishnaviphatak29@gmail.com,0,1,0,109,,,0.5,0
+Shreya Gavali,WCE Sangli,shreyagavali61@gmail.com,0,1,0,110,,,0.5,0
+Geeta Kore,WCE Sangli,koreexsisting@gmail.com,0,1,0,111,,,0.5,0
+Elizabeth Pawar,WCE Sangli,ryukisalive@gmail.com,0,1,0,112,,,0.5,0
+siddharth shankar swami,WCE Sangli,siddharthswami2377@gmail.com,0,1,0,113,,,0.5,0
+Atharva Ashish Patil,WCE Sangli,atharvaapatil82@gmail.com,0,1,0,114,,,0.5,0
+Abhijeet Subhash Thorat,WCE Sangli,abhijeetthorat1925@gmail.com,0,1,0,115,,,0.5,0
+Riya Dey,WCE Sangli,riyadey1712@gmail.com,0,1,0,116,,,0.5,0
+Aniket Suhas Jagtap,WCE Sangli,jagtapaniket109@gmail.com,0,1,0,117,,,0.5,0
+Jyotiraditya Patil,WCE Sangli,patiljyotiraditya1@gmail.com,0,1,0,118,,,0.5,0
+Suyash Rajan Shinde,WCE Sangli,suyash.shinde357@gmail.com,0,1,0,119,,,0.5,0
+Ritesh Nandkumar Kale,WCE Sangli,ritesh7766458@gmail.com,0,1,0,120,,,0.5,0
+Vaishnavi Dilip Desai,WCE Sangli,desai.vaishnavi1172005@gmail.com,0,1,0,121,,,0.5,0
+Manik Sabherwal,WCE Sangli,maniksabherwal448@gmail.com,0,1,0,122,,,0.5,0
+Mahamadyusuf Mahibub Bagwan,WCE Sangli,bagwanmunna124@gmail.com,0,1,0,123,,,0.5,0
+Akshit Koul,WCE Sangli,akshitkoul01@gmail.com,0,1,0,124,,,0.5,0
+Rohit katekhaye,WCE Sangli,katekhayerohit007@gmail.com,0,1,0,125,,,0.5,0
+Pruthviraj sanjay chavan,WCE Sangli,cpruthviraj908@gmail.com,0,1,0,126,,,0.5,0
+Sania Parihar,WCE Sangli,pariharsania94@gmail.com,0,1,0,127,,,0.5,0
+Aditi Prashant Kharat,WCE Sangli,aditikharat1806@gmail.com,0,1,0,128,,,0.5,0
+Sanjana Gokul Yedulwar,WCE Sangli,sanjanayedulwar48@gmail.com,0,1,0,129,,,0.5,0
+Divya kashiram chandanbatwe,WCE Sangli,divyachandan259@gmail.com,0,1,0,130,,,0.5,0
+Arnav Samir Paraswar,WCE Sangli,arnavparaswar01@gmail.com,0,1,0,131,,,0.5,0
+Gouri Chandrakant Shinagare,WCE Sangli,gourishinagare01@gmail.com,0,1,0,132,,,0.5,0
+Govind Nitin Rathi,WCE Sangli,govindrathi081@gmail.com,0,1,0,133,,,0.5,0
+Krishi Narendra Mohture,WCE Sangli,krishi.gdg28@gmail.com,0,1,0,134,,,0.5,0
+Parth Somwanshi,WCE Sangli,parthsomwanshi7@gmail.com,0,1,0,135,,,0.5,0
+Sanskar Vijay Shinde,WCE Sangli,sanskar2471@gmail.com,0,1,0,136,,,0.5,0
+Anish Somani,WCE Sangli,anishsomani2007@gmail.com,0,1,0,137,,,0.5,0
+Shivakiran Balaji Dharjane,WCE Sangli,shivadharjane@gmail.com,0,1,0,138,,,0.5,0
+Abhishek Prashant Bellad,WCE Sangli,abhishekbellad011@gmail.com,0,1,0,139,,,0.5,0
+Anshika Singh,WCE Sangli,anshika14sin@gmail.com,0,1,0,140,,,0.5,0
+Sharayu Ramnath Nakade,WCE Sangli,sharayunakade04@gmail.com,0,1,0,141,,,0.5,0
+Tejasvi Namdev Sirsat,WCE Sangli,tejasvisirsat6@gmail.com,0,1,0,142,,,0.5,0
+Ayush Raina,WCE Sangli,rainaayush748@gmail.com,0,1,0,143,,,0.5,0
+Chinmayi Milind Patil,WCE Sangli,patilchinmayi53@gmail.com,0,1,0,144,,,0.5,0
+Sahil Vishal Aware,WCE Sangli,sahilaware25@gmail.com,0,1,0,145,,,0.5,0
+Yash Dnyaneshwar Koli,WCE Sangli,koli702007@gmail.com,0,1,0,146,,,0.5,0
+Varad Shrikant Gaikwad,WCE Sangli,varad7898@gmail.com,0,1,0,147,,,0.5,0
+Soham Sunil Jadhav,WCE Sangli,sohamjadhav63cc@gmail.com,0,1,0,148,,,0.5,0
+Vishal Bhikaji Darekar,WCE Sangli,thevishal2319@gmail.com,0,1,0,149,,,0.5,0
+Shivtej arun kadlag,WCE Sangli,Shivtejkadlag4@gmail.com,0,1,0,150,,,0.5,0
+PRATHMESH KHARE,WCE Sangli,khareprathmesh11@gmail.com,0,1,0,151,,,0.5,0
+Pradnya Kalagonda Patil,WCE Sangli,pradnyapatil1560@gmail.com,0,1,0,152,,,0.5,0
+Madhura Pandurang Patil,WCE Sangli,madhurapatil1318@gmail.com,0,1,0,153,,,0.5,0
+Madhura Jagdish Patil,WCE Sangli,madhurapatil9199@gmail.com,0,1,0,154,,,0.5,0
+Samiksha Prakash Avhad,WCE Sangli,avhadsamiksha70@gmail.com,0,1,0,155,,,0.5,0
+Sanskruti Somnath Godge,WCE Sangli,sanskrutig48@gmail.com,0,1,0,156,,,0.5,0
+Rohit Rameshwar Bisen,WCE Sangli,bisenrohit0612@gmail.com,0,1,0,157,,,0.5,0
+Shreya Santosh Mohite,WCE Sangli,shreyamohite222@gmail.com,0,1,0,158,,,0.5,0
+MAHARUDRA BANDU DUDHE,WCE Sangli,maharudradudhe40@gmail.com,0,1,0,159,,,0.5,0
+Rohini Subhash Bhavar,WCE Sangli,rohinibhavar51@gmail.com,0,1,0,160,,,0.5,0
+Rutuja vasant Raut,WCE Sangli,rutujaraut912@gmail.com,0,1,0,161,,,0.5,0
+PRIYANSHU KORE,WCE Sangli,korepriyanshu@gmail.com,0,1,0,162,,,0.5,0
+Bhumi Mahesh Swami,WCE Sangli,bhumiswami06@gmail.com,0,1,0,163,,,0.5,0
+Sarthak Sagar Dongare,WCE Sangli,dongaresarthak51@gmail.com,0,1,0,164,,,0.5,0
