@@ -32,42 +32,42 @@
             mix-blend-mode: screen;
         }
 
-        .blob1 { 
-            width: 500px; 
-            height: 500px; 
-            background: var(--accent); 
-            top: -100px; 
-            left: -100px; 
+        .blob1 {
+            width: 500px;
+            height: 500px;
+            background: var(--accent);
+            top: -100px;
+            left: -100px;
             animation: float1 20s infinite, rotate-slow 60s infinite;
         }
-        .blob2 { 
-            width: 400px; 
-            height: 400px; 
-            background: var(--cyan); 
-            bottom: -50px; 
-            right: -100px; 
+        .blob2 {
+            width: 400px;
+            height: 400px;
+            background: var(--cyan);
+            bottom: -50px;
+            right: -100px;
             animation: float2 25s infinite, rotate-slow 80s infinite reverse;
         }
-        .blob3 { 
-            width: 350px; 
-            height: 350px; 
-            background: #8b5cf6; 
-            top: 50%; 
-            right: 10%; 
+        .blob3 {
+            width: 350px;
+            height: 350px;
+            background: #8b5cf6;
+            top: 50%;
+            right: 10%;
             animation: float3 22s infinite, rotate-slow 70s infinite;
         }
 
-        @keyframes float1 { 
-            0%, 100% { transform: translate(0, 0); } 
-            50% { transform: translate(50px, -50px); } 
+        @keyframes float1 {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(50px, -50px); }
         }
-        @keyframes float2 { 
-            0%, 100% { transform: translate(0, 0); } 
-            50% { transform: translate(-50px, 50px); } 
+        @keyframes float2 {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-50px, 50px); }
         }
-        @keyframes float3 { 
-            0%, 100% { transform: translate(0, 0) scale(1); } 
-            50% { transform: translate(-30px, 30px) scale(1.1); } 
+        @keyframes float3 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-30px, 30px) scale(1.1); }
         }
         @keyframes rotate-slow {
             from { transform: rotate(0deg); }
@@ -350,6 +350,7 @@
             border-radius: 3px;
             margin-top: 12px;
             overflow: hidden;
+            /* display: hidden; */
         }
 
         .progress-fill {
@@ -846,35 +847,35 @@
         /* Responsive */
         @media (max-width: 768px) {
             .container { padding: 15px; }
-            
+
             .nav-container {
                 flex-direction: column;
                 gap: 15px;
             }
-            
+
             .nav-menu {
                 width: 100%;
                 justify-content: center;
             }
-            
+
             .nav-link {
                 padding: 8px 12px;
                 font-size: 13px;
             }
-            
+
             .banner {
                 flex-direction: column;
                 padding: 25px 20px;
             }
-            
+
             .banner-icon {
                 font-size: 40px;
             }
-            
+
             .banner h2 {
                 font-size: 20px;
             }
-            
+
             .banner-stat {
                 display: flex;
                 margin-right: 0;
@@ -882,74 +883,74 @@
                 width: 100%;
                 justify-content: center;
             }
-            
+
             .stats-grid {
                 grid-template-columns: 1fr;
                 gap: 15px;
             }
-            
+
             .stat-card {
                 padding: 18px;
             }
-            
+
             .stat-value {
                 font-size: 28px;
             }
-            
+
             .prize-grid {
                 grid-template-columns: 1fr;
                 gap: 20px;
             }
-            
+
             .achievement-grid {
                 grid-template-columns: 1fr;
                 gap: 15px;
             }
-            
+
             .achievement-card {
                 flex-direction: column;
                 text-align: center;
             }
-            
+
             .achievement-icon {
                 margin: 0 auto 15px;
             }
-            
+
             .leaderboard-table {
                 font-size: 13px;
             }
-            
+
             .leaderboard-table th,
             .leaderboard-table td {
                 padding: 12px 8px;
             }
-            
+
             .rank-medal {
                 font-size: 20px;
             }
-            
+
             .footer-content {
                 grid-template-columns: 1fr;
                 gap: 30px;
             }
-            
+
             .logo-text h1 {
                 font-size: 30px;
             }
-            
+
             .course-link {
                 font-size: 14px;
                 padding: 8px 16px;
             }
 
         }
-        
+
         @media (max-width: 480px) {
-            
+
             .leaderboard-table thead {
                 display: none;
             }
-            
+
             .leaderboard-table tr {
                 display: block;
                 margin-bottom: 15px;
@@ -958,18 +959,18 @@
                 padding: 15px;
                 background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(6, 182, 212, 0.05));
             }
-            
+
             .leaderboard-table td {
                 display: block;
                 text-align: left;
                 padding: 8px 0;
                 border-bottom: 1px solid rgba(59, 130, 246, 0.1);
             }
-            
+
             .leaderboard-table td:last-child {
                 border-bottom: none;
             }
-            
+
             .leaderboard-table td:before {
                 content: attr(data-label);
                 font-weight: 600;

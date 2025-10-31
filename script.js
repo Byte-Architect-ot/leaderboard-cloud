@@ -584,7 +584,6 @@
                                 <div style="font-size: 12px; color: var(--text-muted);">${badgePercentage}%</div>
                             </div>
                         </td>
-                        <td data-label="Progress: "><div class="progress-cell"><div class="progress-bar-small"><div class="progress-fill-small" style="width: ${participant.Progress}%;"></div></div><span class="progress-text">${participant.Progress}%</span></div></td>
                     `;
 
                     tbody.appendChild(row);
