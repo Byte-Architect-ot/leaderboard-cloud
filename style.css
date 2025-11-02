@@ -874,42 +874,56 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            .container { padding: 15px; }
+            .container {
+                padding: 15px;
+            }
 
             .nav-container {
                 flex-direction: column;
                 gap: 15px;
+                align-items: center;
+            }
+
+            .logo {
+                justify-content: center;
+            }
+
+            .logo-text h1 {
+                font-size: 24px;
             }
 
             .nav-menu {
                 width: 100%;
                 justify-content: center;
+                flex-wrap: wrap;
+                gap: 6px;
             }
 
             .nav-link {
                 padding: 8px 12px;
-                font-size: 13px;
+                font-size: 12px;
             }
 
             .banner {
                 flex-direction: column;
                 padding: 25px 20px;
+                text-align: center;
+                gap: 20px;
             }
 
             .banner-icon {
-                font-size: 40px;
+                font-size: 48px;
             }
 
             .banner h2 {
-                font-size: 20px;
+                font-size: 24px;
             }
 
             .banner-stat {
-                display: flex;
-                margin-right: 0;
-                margin-bottom: 10px;
+                display: block;
+                margin: 8px 0;
                 width: 100%;
-                justify-content: center;
+                text-align: center;
             }
 
             .stats-grid {
@@ -918,34 +932,54 @@
             }
 
             .stat-card {
-                padding: 18px;
+                padding: 20px;
             }
 
             .stat-value {
                 font-size: 28px;
             }
 
-            .prize-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
+            .stat-icon {
+                width: 45px;
+                height: 45px;
+                font-size: 24px;
             }
 
-            .achievement-grid {
-                grid-template-columns: 1fr;
-                gap: 15px;
+            .leaderboard {
+                padding: 20px;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
             }
 
-            .achievement-card {
+            .leaderboard-wrapper {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                width: 100%;
+            }
+
+            .leaderboard-controls {
                 flex-direction: column;
-                text-align: center;
+                align-items: stretch !important;
+                gap: 10px !important;
             }
 
-            .achievement-icon {
-                margin: 0 auto 15px;
+            .search-controls {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .leaderboard-stats {
+                padding: 20px;
+            }
+
+            .leaderboard-stats > div {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 15px !important;
             }
 
             .leaderboard-table {
-                font-size: 13px;
+                font-size: 12px;
+                min-width: 600px;
             }
 
             .leaderboard-table th,
@@ -957,53 +991,208 @@
                 font-size: 20px;
             }
 
+            .prize-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .prize-card {
+                margin: 0 auto;
+            }
+
+            .achievement-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .achievement-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+            }
+
+            .achievement-icon {
+                margin: 0 auto 15px;
+            }
+
+            .syllabus-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .course-card {
+                padding: 20px;
+            }
+
+            .course-card h3 {
+                font-size: 18px;
+            }
+
             .footer-content {
                 grid-template-columns: 1fr;
                 gap: 30px;
+                text-align: center;
             }
 
-            .logo-text h1 {
-                font-size: 30px;
+            .footer-logo {
+                justify-content: center;
+            }
+
+            .footer-section {
+                text-align: center;
+            }
+
+            .footer-section ul {
+                align-items: center;
             }
 
             .course-link {
                 font-size: 14px;
-                padding: 8px 16px;
+                padding: 10px 20px;
+                width: 100%;
             }
-
         }
 
         @media (max-width: 480px) {
+            .logo-text h1 {
+                font-size: 20px;
+            }
+
+            .nav-link {
+                padding: 6px 10px;
+                font-size: 11px;
+            }
+
+            .banner {
+                padding: 20px 15px;
+            }
+
+            .banner h2 {
+                font-size: 20px;
+            }
+
+            .banner-icon {
+                font-size: 40px;
+            }
+
+            .stat-card {
+                padding: 15px;
+            }
+
+            .stat-value {
+                font-size: 24px;
+            }
+
+            .stat-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+
+            .leaderboard-stats > div {
+                grid-template-columns: 1fr !important;
+            }
+
+            .leaderboard-table {
+                display: block;
+                width: 100%;
+                border-collapse: separate;
+                border-spacing: 0;
+            }
 
             .leaderboard-table thead {
                 display: none;
             }
 
-            .leaderboard-table tr {
+            .leaderboard-table tbody {
                 display: block;
+                width: 100%;
+            }
+
+            .leaderboard-table tr {
+                display: flex;
+                flex-wrap: wrap;
                 margin-bottom: 15px;
                 border: 2px solid rgba(59, 130, 246, 0.25);
-                border-radius: 10px;
+                border-radius: 12px;
                 padding: 15px;
                 background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(6, 182, 212, 0.05));
+                width: 100%;
+                box-sizing: border-box;
+                align-items: center;
+                gap: 0;
             }
 
+            /* All cells reset */
             .leaderboard-table td {
                 display: block;
-                text-align: left;
-                padding: 8px 0;
-                border-bottom: 1px solid rgba(59, 130, 246, 0.1);
+                padding: 0;
+                margin: 0;
+                border: none;
             }
 
-            .leaderboard-table td:last-child {
-                border-bottom: none;
+            /* First line: Rank and Name side by side - flex row */
+            .leaderboard-table td:first-child {
+                display: flex;
+                width: auto;
+                margin-right: 12px;
+                font-size: 20px;
+                align-items: center;
+            }
+
+            .leaderboard-table td:nth-child(2) {
+                display: flex;
+                width: auto;
+                flex: 1;
+                font-size: 16px;
+                font-weight: 600;
+                color: #e0e7ff;
+                align-items: center;
+                min-width: 0;
+            }
+
+
+            /* Second line: College - full width */
+            .leaderboard-table td:nth-child(3) {
+                display: block;
+                width: 100%;
+                padding-top: 12px;
+                margin-top: 12px;
+                border-top: 1px solid rgba(59, 130, 246, 0.15);
+                font-size: 14px;
+                color: var(--text-muted);
+                margin-bottom: 8px;
+                flex-basis: 100%;
+            }
+
+            /* Third line: Badges - full width */
+            .leaderboard-table td:nth-child(4) {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                width: 100%;
+                flex-basis: 100%;
+                margin-bottom: 0;
             }
 
             .leaderboard-table td:before {
-                content: attr(data-label);
-                font-weight: 600;
-                color: var(--accent-light);
-                display: inline-block;
-                width: 100px;
+                display: none;
+            }
+
+            .prize-header {
+                padding: 20px 15px;
+            }
+
+            .prize-tier {
+                font-size: 24px;
+            }
+
+            .course-card h3 {
+                font-size: 16px;
+            }
+
+            .course-link {
+                padding: 8px 16px;
+                font-size: 13px;
             }
         }
