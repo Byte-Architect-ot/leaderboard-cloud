@@ -502,9 +502,7 @@
                 // Sort the filtered data by badges first (default ranking)
                 const sortedData = sortData([...filteredData], currentSort, sortDirection);
 
-                // Calculate proper rankings based on performance
-                let currentRank = 1;
-
+                // Calculate sequential rankings from 1 to last entry
                 sortedData.forEach((participant, index) => {
                     const row = document.createElement('tr');
                     row.style.animationDelay = `${index * 0.05}s`;
@@ -513,36 +511,8 @@
                     const progress = parseInt(participant.Progress || 0);
                     const isCompleted = badges >= 20 && progress >= 100;
 
-                    // Calculate proper rank - only increment if performance is different
-                    if (index > 0) {
-                        const prevParticipant = sortedData[index - 1];
-                        const prevBadges = parseInt(prevParticipant.Badges || 0);
-                        const prevProgress = parseInt(prevParticipant.Progress || 0);
-                        const prevStreak = parseInt(prevParticipant.Streak || 0);
-                        const currentStreak = parseInt(participant.Streak || 0);
-
-                        if (currentSort === 'badges') {
-                            if (badges !== prevBadges) {
-                                currentRank = index + 1;
-                            }
-                        } else if (currentSort === 'progress') {
-                            if (progress !== prevProgress) {
-                                currentRank = index + 1;
-                            }
-                        } else if (currentSort === 'streak') {
-                            if (currentStreak !== prevStreak) {
-                                currentRank = index + 1;
-                            }
-                        } else if (currentSort === 'name' || currentSort === 'college') {
-                            // For alphabetical sorting, use position-based ranking
-                            currentRank = index + 1;
-                        } else {
-                            // Default: badges first, then progress
-                            if (badges !== prevBadges || (badges === prevBadges && progress !== prevProgress)) {
-                                currentRank = index + 1;
-                            }
-                        }
-                    }
+                    // Use sequential ranking: index + 1 (1, 2, 3, ..., n)
+                    const currentRank = index + 1;
 
                     // Determine rank display and styling
                     let rankDisplay, rankClass;
