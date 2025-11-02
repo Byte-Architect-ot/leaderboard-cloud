@@ -545,16 +545,7 @@
                     row.innerHTML = `
                         <td data-label="Rank: "><span class="${rankClass}">${rankDisplay}</span></td>
                         <td data-label="Name: "><span class="name">${participant.Name}</span></td>
-                        <td data-label="College: "><span class="college">${participant.College}</span></td>
-                        <td data-label="Badges: ">
-                            <div style="display: flex; align-items: center; gap: 8px;">
-                                <span class="badge-tag ${isCompleted ? 'completed' : ''}" style="background: ${isCompleted ? 'linear-gradient(135deg, #10b981, #059669)' : 'var(--card-bg)'}; color: ${isCompleted ? 'white' : 'var(--text)'};">
-                                    ⭐ ${participant.Badges}/20
-                                </span>
-                                <div style="font-size: 12px; color: var(--text-muted);">${badgePercentage}%</div>
-                            </div>
-                        </td>
-                    `;
+                        `;
 
                     tbody.appendChild(row);
                 });
@@ -722,3 +713,13 @@
                 loadExcelFileAutomatically();
             }, 100);
         });
+
+                        // <td data-label="College: "><span class="college">${participant.College}</span></td>
+                        // <td data-label="Badges: ">
+                        //     <div style="display: flex; align-items: center; gap: 8px;">
+                        //         <span class="badge-tag ${isCompleted ? 'completed' : ''}" style="background: ${isCompleted ? 'linear-gradient(135deg, #10b981, #059669)' : 'var(--card-bg)'}; color: ${isCompleted ? 'white' : 'var(--text)'};">
+                        //             ⭐ ${participant.Badges}/20
+                        //         </span>
+                        //         <div style="font-size: 12px; color: var(--text-muted);">${badgePercentage}%</div>
+                        //     </div>
+                        // </td>
