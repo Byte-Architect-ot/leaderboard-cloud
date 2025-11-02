@@ -4,553 +4,1066 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GDG WCE - Cloud Study Jams</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- SheetJS library for Excel file reading -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Dots&family=Bellefair&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Intel+One+Mono:ital,wght@0,300..700;1,300..700&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Jost:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Quicksand:wght@300..700&family=Savate:ital,wght@0,200..900;1,200..900&family=Sigmar&family=Special+Gothic+Expanded+One&family=Zalando+Sans+Expanded:ital,wght@0,200..900;1,200..900&family=Zen+Dots&display=swap');
-    @import url('https://fonts.googleapis.com/css2?family=Cantata+One&family=Fira+Code:wght@300..700&family=Intel+One+Mono:ital,wght@0,300..700;1,300..700&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Jost:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Quicksand:wght@300..700&family=Savate:ital,wght@0,200..900;1,200..900&family=Sigmar&family=Special+Gothic+Expanded+One&family=Zalando+Sans+Expanded:ital,wght@0,200..900;1,200..900&family=Zen+Dots&display=swap');
-    @import url('https://fonts.googleapis.com/css2?family=Cantata+One&family=Fira+Code:wght@300..700&family=Intel+One+Mono:ital,wght@0,300..700;1,300..700&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Jost:ital,wght@0,100..900;1,100..900&family=Lexend+Deca:wght@100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Quicksand:wght@300..700&family=Savate:ital,wght@0,200..900;1,200..900&family=Sigmar&family=Special+Gothic+Expanded+One&family=Zalando+Sans+Expanded:ital,wght@0,200..900;1,200..900&family=Zen+Dots&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --google-blue: #4285F4;
+            --google-red: #EA4335;
+            --google-yellow: #FBBC04;
+            --google-green: #34A853;
+            --white: #FFFFFF;
+            --light-gray: #F8F9FA;
+            --gray: #5F6368;
+            --dark-gray: #202124;
+            --shadow: 0 1px 3px rgba(60,64,67,0.3);
+            --shadow-hover: 0 4px 12px rgba(60,64,67,0.2);
+        }
+
+        body {
+            font-family: 'Rubik', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--white);
+            color: var(--dark-gray);
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        .blob {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            z-index: 0;
+            pointer-events: none;
+            animation: float 20s infinite;
+        }
+
+        .blob1 {
+            width: 400px;
+            height: 400px;
+            background: var(--google-blue);
+            top: -100px;
+            left: -100px;
+        }
+
+        .blob2 {
+            width: 350px;
+            height: 350px;
+            background: var(--google-red);
+            bottom: -100px;
+            right: -100px;
+            animation-delay: -7s;
+        }
+
+        .blob3 {
+            width: 300px;
+            height: 300px;
+            background: var(--google-yellow);
+            top: 50%;
+            right: 10%;
+            animation-delay: -14s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(50px, -50px) scale(1.1); }
+            66% { transform: translate(-30px, 30px) scale(0.9); }
+        }
+
+        #main-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        nav {
+            background: var(--white);
+            padding: 20px 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--dark-gray);
+        }
+
+        .logo h1 {
+            font-family: 'Rubik', sans-serif;
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            background: linear-gradient(90deg, var(--google-blue), var(--google-red), var(--google-yellow), var(--google-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 8px;
+        }
+
+        .nav-link {
+            padding: 10px 20px;
+            text-decoration: none;
+            color: var(--gray);
+            font-weight: 500;
+            border-radius: 24px;
+            transition: all 0.3s;
+            font-size: 14px;
+            font-family: 'Rubik', sans-serif;
+            letter-spacing: 0.3px;
+        }
+
+        .nav-link:hover {
+            background: var(--light-gray);
+            color: var(--google-blue);
+        }
+
+        .nav-link.active {
+            background: var(--google-blue);
+            color: var(--white);
+        }
+
+        .page {
+            display: none;
+            padding: 40px 0;
+            min-height: calc(100vh - 200px);
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .banner {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            border-left: 6px solid var(--google-blue);
+        }
+
+        .banner-icon {
+            font-size: 64px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .banner h2 {
+            font-family: 'Bellefair', serif;
+            font-size: 36px;
+            font-weight: 400;
+            margin-bottom: 8px;
+            color: var(--dark-gray);
+            letter-spacing: 0.5px;
+        }
+
+        .banner-stat {
+            display: inline-block;
+            background: var(--light-gray);
+            padding: 8px 16px;
+            border-radius: 20px;
+            margin: 8px 8px 0 0;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: all 0.3s;
+            animation: slideUp 0.6s ease-out;
+            border-top: 4px solid var(--google-blue);
+        }
+
+        .stat-card:nth-child(2) { border-top-color: var(--google-red); }
+        .stat-card:nth-child(3) { border-top-color: var(--google-yellow); }
+        .stat-card:nth-child(4) { border-top-color: var(--google-green); }
+        .stat-card:nth-child(5) { border-top-color: var(--google-blue); }
+        .stat-card:nth-child(6) { border-top-color: var(--google-red); }
+
+        .stat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .stat-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+
+        .stat-label {
+            color: var(--gray);
+            font-size: 14px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-value {
+            font-family: 'Zen Dots', sans-serif;
+            font-size: 36px;
+            font-weight: 400;
+            color: var(--dark-gray);
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: var(--light-gray);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--google-blue), var(--google-green));
+            border-radius: 3px;
+            transition: width 1s ease-out;
+        }
+
+        .leaderboard {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .leaderboard-stats {
+            background: var(--light-gray);
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+        }
+
+        #searchInput {
+            padding: 12px 20px;
+            border: 2px solid var(--light-gray);
+            border-radius: 24px;
+            font-size: 14px;
+            width: 300px;
+            transition: all 0.3s;
+        }
+
+        #searchInput:focus {
+            outline: none;
+            border-color: var(--google-blue);
+        }
+
+        .leaderboard-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .leaderboard-table th {
+            background: var(--light-gray);
+            padding: 16px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--dark-gray);
+            border-bottom: 2px solid var(--google-blue);
+            font-family: 'Rubik', sans-serif;
+        }
+
+        .leaderboard-table td {
+            padding: 20px 16px;
+            border-bottom: 1px solid var(--light-gray);
+            font-family: 'Rubik', sans-serif;
+            font-weight: 400;
+        }
+
+        .leaderboard-table tr:hover {
+            background: var(--light-gray);
+        }
+
+        .prize-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .prize-card {
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: all 0.3s;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        .prize-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .prize-image-placeholder {
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            background: var(--light-gray);
+        }
+
+        .prize-header {
+            padding: 20px;
+            background: linear-gradient(135deg, var(--google-blue), var(--google-green));
+            color: var(--white);
+        }
+
+        .prize-tier {
+            font-family: 'Bellefair', serif;
+            font-size: 28px;
+            font-weight: 400;
+            margin-bottom: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .prize-count {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        .prize-body {
+            padding: 24px;
+        }
+
+        .prize-items {
+            list-style: none;
+            margin: 16px 0;
+        }
+
+        .prize-items li {
+            padding: 8px 0;
+            padding-left: 24px;
+            position: relative;
+            color: var(--gray);
+        }
+
+        .prize-items li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--google-green);
+            font-weight: 700;
+        }
+
+        .syllabus-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .course-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+            animation: slideUp 0.6s ease-out;
+            border-left: 4px solid var(--google-blue);
+        }
+
+        .course-card:nth-child(4n+1) { border-left-color: var(--google-blue); }
+        .course-card:nth-child(4n+2) { border-left-color: var(--google-red); }
+        .course-card:nth-child(4n+3) { border-left-color: var(--google-yellow); }
+        .course-card:nth-child(4n) { border-left-color: var(--google-green); }
+
+        .course-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .course-card h3 {
+            font-family: 'Bellefair', serif;
+            font-size: 22px;
+            font-weight: 400;
+            margin-bottom: 12px;
+            color: var(--dark-gray);
+            letter-spacing: 0.3px;
+        }
+
+        .course-card p {
+            color: var(--gray);
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .course-link {
+            display: inline-block;
+            margin-top: 16px;
+            padding: 12px 24px;
+            background: var(--google-blue);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 24px;
+            font-weight: 500;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .course-link:hover {
+            background: var(--google-red);
+            transform: scale(1.05);
+        }
+
+        .achievement-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .achievement-card {
+            background: var(--white);
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            transition: all 0.3s;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        .achievement-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .achievement-icon {
+            font-size: 48px;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--light-gray);
+            border-radius: 12px;
+        }
+
+        .achievement-content h3 {
+            font-family: 'Bellefair', serif;
+            font-size: 20px;
+            font-weight: 400;
+            margin-bottom: 4px;
+            letter-spacing: 0.3px;
+        }
+
+        .achievement-content p {
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        footer {
+            background: var(--dark-gray);
+            color: var(--white);
+            padding: 50px 0 30px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .footer-logo-text {
+            font-family: 'Rubik', sans-serif;
+            font-size: 24px;
+            font-weight: 600;
+            background: linear-gradient(90deg, var(--google-blue), var(--google-red), var(--google-yellow), var(--google-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 16px;
+            color: var(--white);
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 8px;
+        }
+
+        .footer-section a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--google-blue);
+        }
+
+        .footer-section p {
+            color: rgba(255,255,255,0.7);
+            line-height: 1.8;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.6);
+        }
+
+        .footer-bottom p {
+            margin: 8px 0;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .banner {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+
+            #searchInput {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
-    <!-- Animated Background Blobs -->
     <div class="blob blob1"></div>
     <div class="blob blob2"></div>
     <div class="blob blob3"></div>
 
     <div id="main-wrapper">
-        <div class="page-content-wrapper">
-            <!-- Navigation -->
-            <nav>
-                <div class="container">
-                    <div class="nav-container">
-                        <a href="#" class="logo" onclick="switchPage('home'); return false;">
-                            <!-- <div class="logo-icon">⚡</div> -->
-                            <div class="logo-text">
-                                <h1 class="">Cloud Study Jam</h1>
+        <nav>
+            <div class="container">
+                <div class="nav-container">
+                    <a href="#" class="logo" onclick="switchPage('home'); return false;">
+                        <div class="logo-text">
+                            <h1>Cloud Study Jam</h1>
+                        </div>
+                    </a>
+                    <ul class="nav-menu">
+                        <li><a href="#" class="nav-link active" data-page="home" onclick="switchPage('home'); return false;">Home</a></li>
+                        <li><a href="#" class="nav-link" data-page="leaderboard" onclick="switchPage('leaderboard'); return false;">Leaderboard</a></li>
+                        <li><a href="#" class="nav-link" data-page="prizes" onclick="switchPage('prizes'); return false;">Prizes</a></li>
+                        <li><a href="#" class="nav-link" data-page="syllabus" onclick="switchPage('syllabus'); return false;">Syllabus</a></li>
+                        <li><a href="#" class="nav-link" data-page="community" onclick="switchPage('community'); return false;">Community</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div id="home" class="page active">
+            <div class="container">
+                <div class="banner">
+                    <div class="banner-icon">🏅</div>
+                    <div>
+                        <h2>Complete All 20 Courses & Win Prizes!</h2>
+                        <p style="color: var(--gray); margin-bottom: 15px;">Join among all participants competing for exclusive Google Cloud swags and certificates. Send your completion proof on WhatsApp to claim your reward!</p>
+                        <div class="banner-stat">📆 Deadline: Nov 19, 2025</div>
+                        <div class="banner-stat">🎯 Prizes for only first 100 Participants On Completion!</div>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card" style="animation-delay: 0.1s;">
+                        <div class="stat-icon">👤</div>
+                        <div class="stat-label">Participants</div>
+                        <div class="stat-value">164</div>
+                        <div class="progress-bar"><div class="progress-fill" style="width: 85%;"></div></div>
+                    </div>
+
+                    <div class="stat-card" style="animation-delay: 0.2s;">
+                        <div class="stat-icon">⚡</div>
+                        <div class="stat-label">Active Today</div>
+                        <div class="stat-value">74</div>
+                        <div class="progress-bar"><div class="progress-fill" style="width: 75%;"></div></div>
+                    </div>
+
+                    <div class="stat-card" style="animation-delay: 0.3s;">
+                        <div class="stat-icon">🎖️</div>
+                        <div class="stat-label">Total Badges</div>
+                        <div class="stat-value">3,100</div>
+                        <div class="progress-bar"><div class="progress-fill" style="width: 90%;"></div></div>
+                    </div>
+
+                    <div class="stat-card" style="animation-delay: 0.4s;">
+                        <div class="stat-icon">📈</div>
+                        <div class="stat-label">Avg Progress</div>
+                        <div class="stat-value">27%</div>
+                        <div class="progress-bar"><div class="progress-fill" style="width: 71%;"></div></div>
+                    </div>
+
+                    <div class="stat-card" style="animation-delay: 0.5s;">
+                        <div class="stat-icon">⏰</div>
+                        <div class="stat-label">Avg Time/Badge</div>
+                        <div class="stat-value">2.3h</div>
+                        <div class="progress-bar"><div class="progress-fill" style="width: 60%;"></div></div>
+                    </div>
+
+                    <div class="stat-card" style="animation-delay: 0.6s;">
+                        <div class="stat-icon">✓</div>
+                        <div class="stat-label">Completion Rate</div>
+                        <div class="stat-value">21%</div>
+                        <div class="progress-bar"><div class="progress-fill" style="width: 74%;"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="leaderboard" class="page">
+            <div class="container">
+                <div class="banner">
+                    <div class="banner-icon">🥇</div>
+                    <div>
+                        <h2>Badge Completion Leaderboard</h2>
+                        <p style="color: var(--gray);">Ranked by skill badges completed! See who's leading the Cloud Study Jams challenge with their badge achievements.</p>
+                    </div>
+                </div>
+
+                <div class="leaderboard">
+                    <div class="leaderboard-controls" style="margin-bottom: 20px; display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+                        <div class="search-controls" style="display: flex; gap: 10px; align-items: center;">
+                            <label style="color: var(--gray); font-weight: 500;">Search:</label>
+                            <input type="text" id="searchInput" placeholder="Search by name or college...">
+                        </div>
+                    </div>
+
+                    <div class="leaderboard-stats">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; text-align: center;">
+                            <div>
+                                <div style="font-family: 'Rubik', sans-serif; font-size: 24px; font-weight: 600; color: var(--google-blue);" id="totalParticipants">0</div>
+                                <div style="font-family: 'Rubik', sans-serif; font-size: 12px; color: var(--gray);">Total Participants</div>
                             </div>
-                        </a>
-                        <ul class="nav-menu">
-                            <li><a href="#" class="nav-link active" data-page="home" onclick="switchPage('home'); return false;">Home</a></li>
-                            <li><a href="#" class="nav-link" data-page="leaderboard" onclick="switchPage('leaderboard'); return false;">Leaderboard</a></li>
-                            <li><a href="#" class="nav-link" data-page="prizes" onclick="switchPage('prizes'); return false;">Prizes</a></li>
-                            <li><a href="#" class="nav-link" data-page="syllabus" onclick="switchPage('syllabus'); return false;">Syllabus</a></li>
-                            <!-- <li><a href="#" class="nav-link" data-page="achievements" onclick="switchPage('achievements'); return false;">Achievements</a></li> -->
-                            <!-- <li><a href="#" class="nav-link" data-page="winners" onclick="switchPage('winners'); return false;">Winners</a></li> -->
-                            <li><a href="#" class="nav-link" data-page="community" onclick="switchPage('community'); return false;">Community</a></li>
+                            <div>
+                                <div style="font-family: 'Rubik', sans-serif; font-size: 24px; font-weight: 600; color: var(--google-green);" id="completedParticipants">0</div>
+                                <div style="font-family: 'Rubik', sans-serif; font-size: 12px; color: var(--gray);">Completed All 20 Badges</div>
+                            </div>
+                            <div>
+                                <div style="font-family: 'Rubik', sans-serif; font-size: 24px; font-weight: 600; color: var(--google-yellow);" id="avgProgress">0 badges</div>
+                                <div style="font-family: 'Rubik', sans-serif; font-size: 12px; color: var(--gray);">Average Badges</div>
+                            </div>
+                            <div>
+                                <div style="font-family: 'Rubik', sans-serif; font-size: 24px; font-weight: 600; color: var(--google-red);" id="totalBadges">0 hrs</div>
+                                <div style="font-family: 'Rubik', sans-serif; font-size: 12px; color: var(--gray);">Total Learning Hours</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <table class="leaderboard-table">
+                        <thead>
+                            <tr>
+                                <th onclick="sortTable('rank')" style="cursor: pointer;">Rank <span class="sort-arrow"></span></th>
+                                <th onclick="sortTable('name')" style="cursor: pointer;">Name <span class="sort-arrow"></span></th>
+                                <th onclick="sortTable('college')" style="cursor: pointer;">College <span class="sort-arrow"></span></th>
+                                <th onclick="sortTable('badges')" style="cursor: pointer;">Badges <span class="sort-arrow"></span></th>
+                            </tr>
+                        </thead>
+                        <tbody id="leaderboardBody">
+                            <tr>
+                                <td colspan="6" style="text-align: center; padding: 40px; color: var(--gray);">
+                                    <div style="font-size: 18px; margin-bottom: 10px;">📈</div>
+                                    Loading participant data...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="prizes" class="page">
+            <div class="container">
+                <div class="banner">
+                    <div class="banner-icon">🎁</div>
+                    <div>
+                        <h2>Prize Tiers</h2>
+                        <p style="color: var(--gray);">Amazing rewards waiting for you! Complete the courses and send proof on WhatsApp to claim your prize.</p>
+                    </div>
+                </div>
+
+                <div class="prize-grid">
+                    <div class="prize-card" style="animation-delay: 0.1s;">
+                        <div class="prize-image">
+                            <div class="prize-image-placeholder">🥇</div>
+                        </div>
+                        <div class="prize-header">
+                            <div class="prize-tier">Tier 1 - Elite</div>
+                            <div class="prize-count">First 100 Students</div>
+                        </div>
+                        <div class="prize-body">
+                            <p style="color: var(--dark-gray); margin-bottom: 15px; font-weight: 600;">Complete all 20 courses!</p>
+                            <ul class="prize-items">
+                                <li>Google Cloud Bag</li>
+                                <li>Google Cloud T-Shirt</li>
+                                <li>Google Cloud Bottle</li>
+                                <li>Certificate of Participation</li>
+                                <li>Digital Badges</li>
+                                <li>Easy Access to AI GDG OC Events</li>
+                            </ul>
+                            <button class="course-link" style="width: 100%; margin-top: 15px;">Be in Top 100!</button>
+                        </div>
+                    </div>
+
+                    <div class="prize-card" style="animation-delay: 0.2s;">
+                        <div class="prize-image">
+                            <div class="prize-image-placeholder">🥈</div>
+                        </div>
+                        <div class="prize-header" style="background: linear-gradient(135deg, var(--google-red), var(--google-yellow));">
+                            <div class="prize-tier">Tier 2 - Advanced</div>
+                            <div class="prize-count">Next 70 Students</div>
+                        </div>
+                        <div class="prize-body">
+                            <p style="color: var(--dark-gray); margin-bottom: 15px; font-weight: 600;">Complete all 20 courses + Send proof in WhatsApp group</p>
+                            <ul class="prize-items">
+                                <li>Google Cloud T-Shirt</li>
+                                <li>Google Cloud Bottle</li>
+                                <li>Stickers & Goodies</li>
+                                <li>Certificate of Participation</li>
+                                <li>Digital Badges</li>
+                                <li>Easy Access to AI GDG OC Events</li>
+                            </ul>
+                            <button class="course-link" style="width: 100%; margin-top: 15px;">Be in Top 70!</button>
+                        </div>
+                    </div>
+
+                    <div class="prize-card" style="animation-delay: 0.3s;">
+                        <div class="prize-image">
+                            <div class="prize-image-placeholder">🥉</div>
+                        </div>
+                        <div class="prize-header" style="background: linear-gradient(135deg, var(--google-yellow), var(--google-green));">
+                            <div class="prize-tier">Tier 3 - Starter</div>
+                            <div class="prize-count">Next 50 Students</div>
+                        </div>
+                        <div class="prize-body">
+                            <p style="color: var(--dark-gray); margin-bottom: 15px; font-weight: 600;">Complete all 20 courses + Send proof in WhatsApp group</p>
+                            <ul class="prize-items">
+                                <li>Stickers & Goodies</li>
+                                <li>Certificate of Participation</li>
+                                <li>Digital Badges</li>
+                                <li>Easy Access to AI GDG OC Events</li>
+                                <li>Completion Bonus</li>
+                            </ul>
+                            <button class="course-link" style="width: 100%; margin-top: 15px;">Be in Top 50!</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 40px; padding: 30px; background: var(--light-gray); border: 2px solid var(--google-red); border-radius: 15px; animation: slideUp 0.6s ease-out;">
+                    <h3 style="color: var(--google-red); margin-bottom: 15px; font-size: 18px;">⚠️ How Tier System Works:</h3>
+                    <p style="color: var(--dark-gray); margin-bottom: 10px;"><strong>Tier 1 (Target):</strong> If we achieve this tier, the first 100 students who complete all 20 courses and send proof will get rewards!</p>
+                    <p style="color: var(--dark-gray); margin-bottom: 10px;"><strong>Tier 2:</strong> If we achieve this tier, the first 70 students will get rewards.</p>
+                    <p style="color: var(--dark-gray); margin-bottom: 10px;"><strong>Tier 3:</strong> If we achieve this tier, the first 50 students will get rewards.</p>
+                    <p style="color: var(--google-blue); margin-top: 15px;"><strong>Join Our <a href="#" style="color: var(--google-blue); text-decoration: underline;">WhatsApp Community</a> Now!</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <div id="syllabus" class="page">
+            <div class="container">
+                <div class="banner">
+                    <div class="banner-icon">📚</div>
+                    <div>
+                        <h2>Complete Syllabus</h2>
+                        <p style="color: var(--gray);">Master Generative AI with our comprehensive 20-course curriculum. Each course earns you a badge!</p>
+                    </div>
+                </div>
+
+                <div class="syllabus-container">
+                    <div class="course-card" style="animation-delay: 0.05s;">
+                        <h3>Introduction to Generative AI</h3>
+                        <p>The Basics of Google Cloud Compute</p>
+                        <p>Learn the fundamentals of Generative AI, including its applications, tools, and business use cases.</p>
+                        <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/754?utm_source%3Dgcaf-site%26utm_medium%3Dwebsite%26utm_campaign%3Darcade-facilitator24&sa=D&source=editors&ust=1761564073475411&usg=AOvVaw3WvlYmykaRtjJvZWPDwZAB" target="_blank" class="course-link">Start Module 1</a>
+                    </div>
+
+                    <div class="course-card" style="animation-delay: 0.1s;">
+                        <h3>Get Started with Cloud Storage</h3>
+                        <p>Learn the basics of Google Cloud Storage, including how to store and manage data in the cloud.</p>
+                        <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/725?utm_source%3Dgcaf-site%26utm_medium%3Dwebsite%26utm_campaign%3Darcade-facilitator24&sa=D&source=editors&ust=1761564073475641&usg=AOvVaw2KCN1BxUX4bOTQbrdcu1bz" target="_blank" class="course-link">Start Module 2</a>
+                    </div>
+
+                    <div class="course-card" style="animation-delay: 0.15s;">
+                        <h3>Get Started with Pub/Sub</h3>
+                        <p>Master the fundamentals of Pub/Sub, including its applications, tools, and business use cases.</p>
+                        <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/728?utm_source%3Dgcaf-site%26utm_medium%3Dwebsite%26utm_campaign%3Darcade-facilitator24&sa=D&source=editors&ust=1761564073475774&usg=AOvVaw3fJ37sy4qWXdDiWlJ8qAA5" target="_blank" class="course-link">Start Module 3</a>
+                    </div>
+
+                    <div class="course-card" style="animation-delay: 0.2s;">
+                        <h3>Get Started with API Gateway</h3>
+                        <p>Learn how to leverage the capabilities of API Gateway to build and deploy APIs.</p>
+                        <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/49112?utm_source%3Dgcaf-site%26utm_medium%3Dwebsite%26utm_campaign%3Darcade-facilitator24&sa=D&source=editors&ust=1761564073475911&usg=AOvVaw3WvlYmykaRtjJvZWPDwZAB" target="_blank" class="course-link">Start Module 4</a>
+                    </div>
+
+                    <div class="course-card" style="animation-delay: 0.25s;">
+                        <h3>Get Started with Looker</h3>
+                        <p>Master the fundamentals of Looker, including its applications, tools, and business use cases.</p>
+                        <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/62897?utm_source%3Dgcaf-site%26utm_medium%3Dwebsite%26utm_campaign%3Darcade-facilitator24&sa=D&source=editors&ust=1761564073476041&usg=AOvVaw3WvlYmykaRtjJvZWPDwZAB" target="_blank" class="course-link">Start Module 5</a>
+                    </div>
+
+                    <div class="course-card" style="animation-delay: 0.3s;">
+                        <h3>Get Started with Dataplex</h3>
+                        <p>Explore the capabilities of data management and analytics using Dataplex.</p>
+                        <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/65499?utm_source%3Dgcaf-site%26utm_medium%3Dwebsite%26utm_campaign%3Darcade-facilitator24&sa=D&source=editors&ust=1761564073476191&usg=AOvVaw3WvlYmykaRtjJvZWPDwZAB" target="_blank" class="course-link">Start Module 6</a>
+                    </div>
+
+                    <div class="course-card" style="animation-delay: 0.35s;">
+                        <h3>Get Started with Google Workspace Tools</h3>
+                        <p>Learn how to work with Google Workspace tools, including how to create and manage calendars, contacts, and more.</p>
+                        <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/69427?utm_source%3Dgcaf-site%26utm_medium%3Dwebsite%26utm_campaign%3Darcade-facilitator24&sa=D&source=editors&ust=1761564073476341&usg=AOvVaw3WvlYmykaRtjJvZWPDwZAB" target="_blank" class="course-link">Start Module 7</a>
+                    </div>
+
+                    <div class="course-card" style="animation-delay: 0.4s;">
+                        <h3>App Building with Appsheet</h3>
+                        <p>Learn how to build and deploy apps using Appsheet, a cloud-native application development platform.</p>
+                        <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/635&sa=D&source=editors&ust=1761564073476552&usg=AOvVaw04jR4r1X8MjAOydfv7gCT0" target="_blank" class="course-link">Start Module 8</a>
+                    </div>
+
+                    <div class="course-card" style="animation-delay: 0.45s;">
+                        <h3>Develop with Apps Script and AppSheet</h3>
+                        <p>Learn how to use Apps Script to extend Google Workspace applications and build custom solutions.</p>
+                        <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/715&sa=D&source=editors&ust=1761585829405881&usg=AOvVaw0saH_C0GjwgYKK3FORSd5H" target="_blank" class="course-link">Start Module 9</a>
+                    </div>
+
+                    <div class="course-card" style="animation-delay: 0.5s;">
+                        <h3>Build a Website on Google Cloud</h3>
+                        <p>Learn how to build a website on Google Cloud using Cloud Run, Cloud Storage, and Cloud SQL.</p>
+                        <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/638&sa=D&source=editors&ust=1761585829406004&usg=AOvVaw2OXeLLLyX2GV4S93uYuHKN" target="_blank" class="course-link">Start Module 10</a>
+                    </div>
+
+                    <div class="course-card" style="animation-delay: 0.55s;">
+                        <h3>Set Up a Google Cloud Network</h3>
+                        <p>Learn how to set up a Google Cloud network, including VPCs, subnets, and firewall rules.</p>
+                        <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/641&sa=D&source=editors&ust=1761585829406105&usg=AOvVaw00hSPUsUUEBubjXZ-gCrwy" target="_blank" class="course-link">Start Module 11</a>
+                    </div>
+
+                    <div class="course-card" style="animation-delay: 0.6s;">
+                        <h3>Store, Process, and Manage Data on Google Cloud</h3>
+                        <p>Learn how to store, process, and manage data on Google Cloud using BigQuery, Cloud Storage, and more.</p>
+                        <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/658&sa=D&source=editors&ust=1761585829406203&usg=AOvVaw25POcL6kFFFTzryz3h0qxL" target="_blank" class="course-link">Start Module 12</a>
+                    </div>
+
+                    <div class="course-card" style="animation-delay: 0.65s;">
+                        <h3>Cloud Functions: 3 Ways</h3>
+                        <p>Learn how to build and deploy cloud functions using Cloud Functions, Cloud Run, and Cloud Scheduler.</p>
+                        <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/696?utm_source%3Dgcaf-site%26utm_medium%3Dwebsite%26utm_campaign%3Darcade-facilitator24&sa=D&source=editors&ust=1761585829406293&usg=AOvVaw2UCxcCDAMFsaOuWfsQjKBn" target="_blank" class="course-link">Start Module 13</a>
+                    </div>
+
+                    <div class="course-card" style="animation-delay: 0.7s;">
+                        <h3>App Engine: 3 Ways</h3>
+                        <p>Learn how to build and deploy applications on App Engine using various programming languages and frameworks.</p>
+                        <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/671?utm_source%3Dgcaf-site%26utm_medium%3Dwebsite%26utm_campaign%3Darcade-facilitator24&sa=D&source=editors&ust=1761585829406392&usg=AOvVaw1jeSoHnH6Kz3PeE15z0txu" target="_blank" class="course-link">Start Module 14</a>
+                    </div>
+
+                    <div class="course-card" style="animation-delay: 0.75s;">
+                        <h3>Cloud Speech API: 3 Ways</h3>
+                        <p>Learn how to use the Cloud Speech API to transcribe audio files using various programming languages and frameworks.</p>
+                        <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/700?utm_source%3Dgcaf-site%26utm_medium%3Dwebsite%26utm_campaign%3Darcade-facilitator24&sa=D&source=editors&ust=1761585829406488&usg=AOvVaw0DhGSbq-Swzj3LazFMG8Qw" target="_blank" class="course-link">Start Module 15</a>
+                    </div>
+
+                    <div class="course-card" style="animation-delay: 0.8s;">
+                        <h3>Monitoring in Google Cloud</h3>
+                        <p>Learn how to monitor your Google Cloud resources using Cloud Monitoring and Cloud Logging.</p>
+                        <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/747?utm_source%3Dgcaf-site%26utm_medium%3Dwebsite%26utm_campaign%3Darcade-facilitator24&sa=D&source=editors&ust=1761585829406602&usg=AOvVaw16uwJMBwcm-1iPltkmHeei" target="_blank" class="course-link">Start Module 16</a>
+                    </div>
+
+                    <div class="course-card" style="animation-delay: 0.85s;">
+                        <h3>Analyze Speech and Language with Google APIs</h3>
+                        <p>Learn how to analyze speech and language using Google APIs and Cloud Functions.</p>
+                        <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/634&sa=D&source=editors&ust=1761585829406730&usg=AOvVaw0wFye90in2MWbBx6y-Zd9-" target="_blank" class="course-link">Start Module 17</a>
+                    </div>
+
+                    <div class="course-card" style="animation-delay: 0.9s;">
+                        <h3>Prompt Design in Vertex AI</h3>
+                        <p>Learn how to design and optimize prompts for Vertex AI models.</p>
+                        <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/976?utm_source%3Dgcaf-site%26utm_medium%3Dwebsite%26utm_campaign%3Darcade-facilitator24&sa=D&source=editors&ust=1761585829406846&usg=AOvVaw3qDfYhyz3nJ_1ugd1Ylb8R" target="_blank" class="course-link">Start Module 18</a>
+                    </div>
+
+                    <div class="course-card" style="animation-delay: 0.95s;">
+                        <h3>Develop GenAI Apps with Gemini and Streamlit</h3>
+                        <p>Learn how to develop generative AI applications using Gemini and Streamlit.</p>
+                        <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/978&sa=D&source=editors&ust=1761585829406952&usg=AOvVaw0gQ8oUdz7Sd4cEKz9VJYKU" target="_blank" class="course-link">Start Module 19</a>
+                    </div>
+
+                    <div class="course-card" style="animation-delay: 1.0s;">
+                        <h3>Master Cloud Arcade Game: Level 3</h3>
+                        <p>Learn how to create a cloud-based arcade game using Google Cloud technologies.</p>
+                        <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/979&sa=D&source=editors&ust=1761585829407060&usg=AOvVaw2g1H1g1H1g1H1g1H1g1H1g" target="_blank" class="course-link">Start Module 20</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="community" class="page">
+            <div class="container">
+                <div class="banner">
+                    <div class="banner-icon">💬</div>
+                    <div>
+                        <h2>Join Our Community</h2>
+                        <p style="color: var(--gray);">Connect with fellow learners, share knowledge, and grow together in our vibrant GDG community!</p>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin: 40px 0;">
+                    <div class="achievement-card" style="animation-delay: 0.1s; flex-direction: column; text-align: center;">
+                        <div class="achievement-icon" style="width: 100px; height: 100px; font-size: 50px; margin: 0 auto 20px;">📞</div>
+                        <div class="achievement-content" style="width: 100%;">
+                            <h3 style="font-size: 22px; margin-bottom: 10px;">WhatsApp Community</h3>
+                            <p style="margin-bottom: 20px;">A tech-driven community empowering students to explore Google technologies and open-source.</p>
+                            <a href="https://chat.whatsapp.com/JVFMO1MLQnAAJCeSMra4JF" class="course-link" style="width: 100%; text-align: center; display: inline-block;">GDG - WCE WhatsApp Community</a>
+                        </div>
+                    </div>
+
+                    <div class="achievement-card" style="animation-delay: 0.2s; flex-direction: column; text-align: center;">
+                        <div class="achievement-icon" style="width: 100px; height: 100px; font-size: 50px; margin: 0 auto 20px;">💼</div>
+                        <div class="achievement-content" style="width: 100%;">
+                            <h3 style="font-size: 22px; margin-bottom: 10px;">LinkedIn</h3>
+                            <p style="margin-bottom: 20px;">Follow us on LinkedIn for industry insights, career opportunities, and event announcements.</p>
+                            <a href="https://www.linkedin.com/company/gdgwce/posts/?feedView=all" class="course-link" style="width: 100%; text-align: center; display: inline-block;">Follow us on LinkedIn</a>
+                        </div>
+                    </div>
+
+                    <div class="achievement-card" style="animation-delay: 0.3s; flex-direction: column; text-align: center;">
+                        <div class="achievement-icon" style="width: 100px; height: 100px; font-size: 50px; margin: 0 auto 20px;">👥</div>
+                        <div class="achievement-content" style="width: 100%;">
+                            <h3 style="font-size: 22px; margin-bottom: 10px;">Cloud Study Jams</h3>
+                            <p style="margin-bottom: 20px;">Get instant updates, share solutions, and connect with the Cloud Study Jams family.</p>
+                            <a href="https://chat.whatsapp.com/GW7SXq9dXG6Ez9cwNjnk0T?mode=wwt" class="course-link" style="width: 100%; text-align: center; display: inline-block;">Join WhatsApp Group</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 50px; padding: 40px; background: var(--light-gray); border: 2px solid var(--google-blue); border-radius: 15px; animation: slideUp 0.6s ease-out;">
+                    <h3 style="color: var(--google-blue); margin-bottom: 15px; font-size: 20px;">Why Join Our Community?</h3>
+                    <p style="color: var(--gray); line-height: 1.8; max-width: 600px; margin: 0 auto;">
+                        🎯 <strong>Network with Peers</strong> - Connect with fellow learners and professionals<br/>
+                        📚 <strong>Share Resources</strong> - Exchange tips, tricks, and learning materials<br/>
+                        🏅 <strong>Celebrate Wins</strong> - Share achievements and motivate each other<br/>
+                        💡 <strong>Get Support</strong> - Ask questions and get help from community experts<br/>
+                        🚀 <strong>Opportunities</strong> - Discover internships, jobs, and collaboration opportunities
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <div class="footer-logo">
+                            <div class="logo-icon"><img src="logo2.png" alt="" style="width: 50px; height: 50px;"></div>
+                            <div class="footer-logo-text">GDG WCE</div>
+                        </div>
+                        <p>Google Developer Groups on Campus - Walchand College of Engineering, Sangli. Empowering students with cutting-edge technology and fostering innovation through community-driven learning.</p>
+                    </div>
+
+                    <div class="footer-section">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="#" onclick="switchPage('home'); return false;">Home</a></li>
+                            <li><a href="#" onclick="switchPage('leaderboard'); return false;">Leaderboard</a></li>
+                            <li><a href="#" onclick="switchPage('prizes'); return false;">Prizes</a></li>
+                            <li><a href="#" onclick="switchPage('syllabus'); return false;">Syllabus</a></li>
+                            <li><a href="#" onclick="switchPage('community'); return false;">Community</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-section">
+                        <h4>Join Community</h4>
+                        <ul>
+                            <li><a href="https://chat.whatsapp.com/GW7SXq9dXG6Ez9cwNjnk0T?mode=wwt">WhatsApp Community</a></li>
+                            <li><a href="https://www.linkedin.com/company/gdgwce/posts/?feedView=all">LinkedIn</a></li>
+                            <li><a href="mailto:olambeshreyash@gmail.com">Email</a></li>
                         </ul>
                     </div>
                 </div>
-            </nav>
 
-    <!-- HOME PAGE -->
-    <div id="home" class="page active">
-        <div class="container">
-            <div class="banner">
-                <div class="banner-icon">🏆</div>
-                <div>
-                    <h2>Complete All 20 Courses & Win Prizes!</h2>
-                    <p style="color: var(--text-muted); margin-bottom: 15px;">Join among all participants competing for exclusive Google Cloud swags and certificates. Send your completion proof on WhatsApp to claim your reward!</p>
-                    <div class="banner-stat">📅 Deadline: Nov 19, 2025</div>
-                    <div class="banner-stat">🎁 Prizes for only first 100 Participants On Completion!</div>
+                <div class="footer-bottom">
+                    <p>© 2025 GDG on Campus - WCE Sangli | Cloud Study Jams. All rights reserved.</p>
+                    <p>Powered by <span style="background: linear-gradient(90deg, var(--google-blue), var(--google-red), var(--google-yellow), var(--google-green)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 600;">Google Cloud Skills Boost</span></p>
                 </div>
             </div>
-
-            <div class="stats-grid">
-                <div class="stat-card" style="animation-delay: 0.1s;">
-                    <div class="stat-icon">👥</div>
-                    <div class="stat-label">Participants</div>
-                    <div class="stat-value">164</div>
-                    <div class="progress-bar"><div class="progress-fill" style="width: 85%;"></div></div>
-                </div>
-
-                <div class="stat-card" style="animation-delay: 0.2s;">
-                    <div class="stat-icon">🔥</div>
-                    <div class="stat-label">Active Today</div>
-                    <div class="stat-value">74</div>
-                    <div class="progress-bar"><div class="progress-fill" style="width: 75%;"></div></div>
-                </div>
-
-                <div class="stat-card" style="animation-delay: 0.3s;">
-                    <div class="stat-icon">⭐</div>
-                    <div class="stat-label">Total Badges</div>
-                    <div class="stat-value">3,100</div>
-                    <div class="progress-bar"><div class="progress-fill" style="width: 90%;"></div></div>
-                </div>
-
-                <div class="stat-card" style="animation-delay: 0.4s;">
-                    <div class="stat-icon">📊</div>
-                    <div class="stat-label">Avg Progress</div>
-                    <div class="stat-value">27%</div>
-                    <div class="progress-bar"><div class="progress-fill" style="width: 71%;"></div></div>
-                </div>
-
-                <div class="stat-card" style="animation-delay: 0.5s;">
-                    <div class="stat-icon">⏱️</div>
-                    <div class="stat-label">Avg Time/Badge</div>
-                    <div class="stat-value">2.3h</div>
-                    <div class="progress-bar"><div class="progress-fill" style="width: 60%;"></div></div>
-                </div>
-
-                <div class="stat-card" style="animation-delay: 0.6s;">
-                    <div class="stat-icon">✅</div>
-                    <div class="stat-label">Completion Rate</div>
-                    <div class="stat-value">21%</div>
-                    <div class="progress-bar"><div class="progress-fill" style="width: 74%;"></div></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- LEADERBOARD PAGE -->
-    <div id="leaderboard" class="page">
-        <div class="container">
-            <div class="banner">
-                <div class="banner-icon">🏆</div>
-                <div>
-                    <h2>Badge Completion Leaderboard</h2>
-                    <p style="color: var(--text-muted);">Ranked by skill badges completed! See who's leading the Cloud Study Jams challenge with their badge achievements.</p>
-                </div>
-            </div>
-
-            <div class="leaderboard">
-                <div class="leaderboard-controls" style="margin-bottom: 20px; display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
-                    <div class="search-controls" style="display: flex; gap: 10px; align-items: center;">
-                        <label style="color: var(--text-muted); font-weight: 500;">Search:</label>
-                        <input type="text" id="searchInput" placeholder="Search by name or college..." style="padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--card-bg); color: var(--text); font-size: 14px; min-width: 200px;">
-                    </div>
-                </div>
-
-                <div class="leaderboard-stats" style="margin-bottom: 20px; padding: 15px; background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(6, 182, 212, 0.05)); border-radius: 10px; border: 1px solid rgba(59, 130, 246, 0.2);">
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; text-align: center;">
-                        <div>
-                            <div style="font-size: 24px; font-weight: bold; color: var(--accent-light);" id="totalParticipants">0</div>
-                            <div style="font-size: 12px; color: var(--text-muted);">Total Participants</div>
-                        </div>
-                        <div>
-                            <div style="font-size: 24px; font-weight: bold; color: #10b981;" id="completedParticipants">0</div>
-                            <div style="font-size: 12px; color: var(--text-muted);">Completed All 20 Badges</div>
-                        </div>
-                        <div>
-                            <div style="font-size: 24px; font-weight: bold; color: #f59e0b;" id="avgProgress">0 badges</div>
-                            <div style="font-size: 12px; color: var(--text-muted);">Average Badges</div>
-                        </div>
-                        <div>
-                        <div style="font-size: 24px; font-weight: bold; color: #8b5cf6;" id="totalBadges">0 hrs</div>
-                            <div style="font-size: 12px; color: var(--text-muted);">Total Learning Hours</div>
-                        </div>
-                    </div>
-                </div>
-
-                <table class="leaderboard-table">
-                    <thead>
-                        <tr>
-                            <th onclick="sortTable('rank')" style="cursor: pointer;">Rank <span class="sort-arrow"></span></th>
-                            <th onclick="sortTable('name')" style="cursor: pointer;">Name <span class="sort-arrow"></span></th>
-                            <th onclick="sortTable('college')" style="cursor: pointer;">College <span class="sort-arrow"></span></th>
-                            <th onclick="sortTable('badges')" style="cursor: pointer;">Badges <span class="sort-arrow"></span></th>
-                            <!-- <th onclick="sortTable('streak')" style="cursor: pointer;">Streak <span class="sort-arrow"></span></th> -->
-                            <!-- <th onclick="sortTable('progress')" style="cursor: pointer;">Progress <span class="sort-arrow"></span></th> -->
-                        </tr>
-                    </thead>
-                    <tbody id="leaderboardBody">
-                        <!-- Dynamic content will be loaded here -->
-                        <tr>
-                            <td colspan="6" style="text-align: center; padding: 40px; color: var(--text-muted);">
-                                <div style="font-size: 18px; margin-bottom: 10px;">📊</div>
-                                Loading participant data...
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    <!-- PRIZES PAGE -->
-    <div id="prizes" class="page">
-        <div class="container">
-            <div class="banner">
-                <div class="banner-icon">🎁</div>
-                <div>
-                    <h2>Prize Tiers</h2>
-                    <p style="color: var(--text-muted);">Amazing rewards waiting for you! Complete the courses and send proof on WhatsApp to claim your prize.</p>
-                </div>
-            </div>
-
-            <div class="prize-grid">
-                <div class="prize-card" style="animation-delay: 0.1s;">
-                    <div class="prize-image">
-                        <div class="prize-image-placeholder">🏆</div>
-                    </div>
-                    <div class="prize-header">
-                        <div class="prize-tier">Tier 1 - Elite
-                        </div>
-                        <div class="prize-count">First 100 Students</div>
-                    </div>
-                    <div class="prize-body">
-                        <p style="color: var(--text); margin-bottom: 15px; font-weight: 600;">Complete all 20 courses!</p>
-                        <ul class="prize-items">
-                            <li>Google Cloud Bag</li>
-                            <li>Google Cloud T-Shirt</li>
-                            <li>Google Cloud Bottle</li>
-                            <!-- <li>Stickers & Goodies</li> -->
-                            <li>Certificate of Participation</li>
-                            <li>Digital Badges</li>
-                            <li>Easy Access to AI GDG OC Events</li>
-                        </ul>
-                        <button class="course-link" style="width: 100%; margin-top: 15px;">Be in Top 100!</button>
-                    </div>
-                </div>
-
-                <div class="prize-card" style="animation-delay: 0.2s;">
-                    <div class="prize-image">
-                        <div class="prize-image-placeholder">🥈</div>
-                    </div>
-                    <div class="prize-header" style="background: linear-gradient(135deg, #a78bfa, #8b5cf6);">
-                        <div class="prize-tier">Tier 2 - Advanced</div>
-                        <div class="prize-count">Next 70 Students</div>
-                    </div>
-                    <div class="prize-body">
-                        <p style="color: var(--text); margin-bottom: 15px; font-weight: 600;">Complete all 20 courses + Send proof in WhatsApp group</p>
-                        <ul class="prize-items">
-                            <li>Google Cloud T-Shirt</li>
-                            <li>Google Cloud Bottle</li>
-                            <li>Stickers & Goodies</li>
-                            <li>Certificate of Participation</li>
-                            <li>Digital Badges</li>
-                            <li>Easy Access to AI GDG OC Events</li>
-                        </ul>
-                        <button class="course-link" style="width: 100%; margin-top: 15px;">Be in Top 70!</button>
-                    </div>
-                </div>
-
-                <div class="prize-card" style="animation-delay: 0.3s;">
-                    <div class="prize-image">
-                        <div class="prize-image-placeholder">🥉</div>
-                    </div>
-                    <div class="prize-header" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
-                        <div class="prize-tier">Tier 3 - Starter</div>
-                        <div class="prize-count">Next 50 Students</div>
-                    </div>
-                    <div class="prize-body">
-                        <p style="color: var(--text); margin-bottom: 15px; font-weight: 600;">Complete all 20 courses + Send proof in WhatsApp group</p>
-                        <ul class="prize-items">
-                            <li>Stickers & Goodies</li>
-                            <li>Certificate of Participation</li>
-                            <li>Digital Badges</li>
-                            <li>Easy Access to AI GDG OC Events</li>
-                            <li>Completion Bonus</li>
-                        </ul>
-                        <button class="course-link" style="width: 100%; margin-top: 15px;">Be in Top 50!</button>
-                    </div>
-                </div>
-            </div>
-
-            <div style="text-align: center; margin-top: 40px; padding: 30px; background: linear-gradient(135deg, rgba(220, 38, 38, 0.15), rgba(239, 68, 68, 0.1)); border: 2px solid rgba(220, 38, 38, 0.3); border-radius: 15px; animation: slideUp 0.6s ease-out;">
-                <h3 style="color: #fbbf24; margin-bottom: 15px; font-size: 18px;">⚠️ How Tier System Works:</h3>
-                <p style="color: var(--text); margin-bottom: 10px;"><strong>Tier 1 (Target):</strong> If we achieve this tier, the first 100 students who complete all 20 courses and send proof will get rewards!</p>
-                <p style="color: var(--text); margin-bottom: 10px;"><strong>Tier 2:</strong> If we achieve this tier, the first 70 students will get rewards.</p>
-                <p style="color: var(--text); margin-bottom: 10px;"><strong>Tier 3:</strong> If we achieve this tier, the first 50 students will get rewards.</p>
-                <p style="color: #fbbf24; margin-top: 15px;"><strong>Join Our<a href="#" style="color: #60a5fa; text-decoration: underline;"> WhatsApp Community</a> Now!</strong></p>
-            </div>
-        </div>
-    </div>
-
-    <div id="syllabus" class="page">
-        <div class="container">
-            <div class="banner">
-                <div class="banner-icon">📚</div>
-                <div>
-                    <h2>Complete Syllabus</h2>
-                    <p style="color: var(--text-muted);">Master Generative AI with our comprehensive 20-course curriculum. Each course earns you a badge!</p>
-                </div>
-            </div>
-
-            <div class="syllabus-container">
-                <div class="course-card" style="animation-delay: 0.05s;">
-                    <h3>✨ Introduction to Generative AI</h3>
-                    <p>The Basics of Google Cloud Compute</p>
-                    <p>Learn the fundamentals of Generative AI, including its applications, tools, and business use cases.</p>
-                    <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/754?utm_source%3Dgcaf-site%26utm_medium%3Dwebsite%26utm_campaign%3Darcade-facilitator24&sa=D&source=editors&ust=1761564073475411&usg=AOvVaw3WvlYmykaRtjJvZWPDwZAB" target="_blank" class="course-link">Start Module 1</a>
-                </div>
-
-                <div class="course-card" style="animation-delay: 0.1s;">
-                    <h3>🤖 Get Started with Cloud Storage</h3>
-                    <p>Learn the basics of Google Cloud Storage, including how to store and manage data in the cloud.</p>
-                    <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/725?utm_source%3Dgcaf-site%26utm_medium%3Dwebsite%26utm_campaign%3Darcade-facilitator24&sa=D&source=editors&ust=1761564073475641&usg=AOvVaw2KCN1BxUX4bOTQbrdcu1bz" target="_blank" class="course-link">Start Module 2</a>
-                </div>
-
-                <div class="course-card" style="animation-delay: 0.15s;">
-                    <h3>🌐 Get Started with Pub/Sub</h3>
-                    <p>Master the fundamentals of Pub/Sub, including its applications, tools, and business use cases.</p>
-                    <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/728?utm_source%3Dgcaf-site%26utm_medium%3Dwebsite%26utm_campaign%3Darcade-facilitator24&sa=D&source=editors&ust=1761564073475774&usg=AOvVaw3fJ37sy4qWXdDiWlJ8qAA5" target="_blank" class="course-link">Start Module 3</a>
-                </div>
-
-                <div class="course-card" style="animation-delay: 0.2s;">
-                    <h3>🔧 Get Started with API Gateway</h3>
-                    <p>Learn how to leverage the capabilities of API Gateway to build and deploy APIs.</p>
-                    <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/49112?utm_source%3Dgcaf-site%26utm_medium%3Dwebsite%26utm_campaign%3Darcade-facilitator24&sa=D&source=editors&ust=1761564073475911&usg=AOvVaw3WvlYmykaRtjJvZWPDwZAB" target="_blank" class="course-link">Start Module 4</a>
-                </div>
-
-                <div class="course-card" style="animation-delay: 0.25s;">
-                    <h3>💬 RGet Started with Looker</h3>
-                    <p>Master the fundamentals of Looker, including its applications, tools, and business use cases.</p>
-                    <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/62897?utm_source%3Dgcaf-site%26utm_medium%3Dwebsite%26utm_campaign%3Darcade-facilitator24&sa=D&source=editors&ust=1761564073476041&usg=AOvVaw3WvlYmykaRtjJvZWPDwZAB" target="_blank" class="course-link">Start Module 5</a>
-                </div>
-
-                <div class="course-card" style="animation-delay: 0.3s;">
-                    <h3>🎨 Get Started with Dataplex</h3>
-                    <p>Explore the capabilities of data management and analytics using Dataplex.</p>
-                    <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/65499?utm_source%3Dgcaf-site%26utm_medium%3Dwebsite%26utm_campaign%3Darcade-facilitator24&sa=D&source=editors&ust=1761564073476191&usg=AOvVaw3WvlYmykaRtjJvZWPDwZAB" target="_blank" class="course-link">Start Module 6</a>
-                </div>
-
-                <div class="course-card" style="animation-delay: 0.35s;">
-                    <h3>🚀 Get Started with Google Workspace Tools</h3>
-                    <p>Learn how to work with Google Workspace tools, including how to create and manage calendars, contacts, and more.</p>
-                    <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/69427?utm_source%3Dgcaf-site%26utm_medium%3Dwebsite%26utm_campaign%3Darcade-facilitator24&sa=D&source=editors&ust=1761564073476341&usg=AOvVaw3WvlYmykaRtjJvZWPDwZAB" target="_blank" class="course-link">Start Module 7</a>
-                </div>
-
-                <div class="course-card" style="animation-delay: 0.4s;">
-                    <h3>🔍 App Building with Appsheet</h3>
-                    <p>Learn how to build and deploy apps using Appsheet, a cloud-native application development platform.</p>
-                    <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/635&sa=D&source=editors&ust=1761564073476552&usg=AOvVaw04jR4r1X8MjAOydfv7gCT0" target="_blank" class="course-link">Start Module 8</a>
-                </div>
-
-                <div class="course-card" style="animation-delay: 0.45s;">
-                    <h3>📊 Develop with Apps Script and AppSheet</h3>
-                    <p>Learn how to use Apps Script to extend Google Workspace applications and build custom solutions.</p>
-                    <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/715&sa=D&source=editors&ust=1761585829405881&usg=AOvVaw0saH_C0GjwgYKK3FORSd5H" target="_blank" class="course-link">Start Module 9</a>
-                </div>
-
-                <div class="course-card" style="animation-delay: 0.5s;">
-                    <h3>🎯 Build a Website on Google Cloud</h3>
-                    <p>Learn how to build a website on Google Cloud using Cloud Run, Cloud Storage, and Cloud SQL.</p>
-                    <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/638&sa=D&source=editors&ust=1761585829406004&usg=AOvVaw2OXeLLLyX2GV4S93uYuHKN" target="_blank" class="course-link">Start Module 10</a>
-                </div>
-
-                <div class="course-card" style="animation-delay: 0.55s;">
-                    <h3>🔗 Set Up a Google Cloud Network</h3>
-                    <p>Learn how to set up a Google Cloud network, including VPCs, subnets, and firewall rules.</p>
-                    <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/641&sa=D&source=editors&ust=1761585829406105&usg=AOvVaw00hSPUsUUEBubjXZ-gCrwy" target="_blank" class="course-link">Start Module 11</a>
-                </div>
-
-                <div class="course-card" style="animation-delay: 0.6s;">
-                    <h3>🎨 Store, Process, and Manage Data on Google Cloud - Console</h3>
-                    <p>Learn how to store, process, and manage data on Google Cloud using BigQuery, Cloud Storage, and more.</p>
-                    <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/658&sa=D&source=editors&ust=1761585829406203&usg=AOvVaw25POcL6kFFFTzryz3h0qxL" target="_blank" class="course-link">Start Module 12</a>
-                </div>
-
-                <div class="course-card" style="animation-delay: 0.65s;">
-                    <h3>🎞️ Cloud Functions: 3 Ways</h3>
-                    <p>Learn how to build and deploy cloud functions using Cloud Functions, Cloud Run, and Cloud Scheduler.</p>
-                    <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/696?utm_source%3Dgcaf-site%26utm_medium%3Dwebsite%26utm_campaign%3Darcade-facilitator24&sa=D&source=editors&ust=1761585829406293&usg=AOvVaw2UCxcCDAMFsaOuWfsQjKBn" target="_blank" class="course-link">Start Module 13</a>
-                </div>
-
-                <div class="course-card" style="animation-delay: 0.7s;">
-                    <h3>🎭 App Engine: 3 Ways</h3>
-                    <p>Learn how to build and deploy applications on App Engine using various programming languages and frameworks.</p>
-                    <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/671?utm_source%3Dgcaf-site%26utm_medium%3Dwebsite%26utm_campaign%3Darcade-facilitator24&sa=D&source=editors&ust=1761585829406392&usg=AOvVaw1jeSoHnH6Kz3PeE15z0txu" target="_blank" class="course-link">Start Module 14</a>
-                </div>
-
-                <div class="course-card" style="animation-delay: 0.75s;">
-                    <h3>🌐 Cloud Speech API: 3 Ways</h3>
-                    <p>Learn how to use the Cloud Speech API to transcribe audio files using various programming languages and frameworks.</p>
-                    <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/700?utm_source%3Dgcaf-site%26utm_medium%3Dwebsite%26utm_campaign%3Darcade-facilitator24&sa=D&source=editors&ust=1761585829406488&usg=AOvVaw0DhGSbq-Swzj3LazFMG8Qw" target="_blank" class="course-link">Start Module 15</a>
-                </div>
-
-                <div class="course-card" style="animation-delay: 0.8s;">
-                    <h3>📱 Monitoring in Google Cloud</h3>
-                    <p>Learn how to monitor your Google Cloud resources using Cloud Monitoring and Cloud Logging.</p>
-                    <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/747?utm_source%3Dgcaf-site%26utm_medium%3Dwebsite%26utm_campaign%3Darcade-facilitator24&sa=D&source=editors&ust=1761585829406602&usg=AOvVaw16uwJMBwcm-1iPltkmHeei" target="_blank" class="course-link">Start Module 16</a>
-                </div>
-
-                <div class="course-card" style="animation-delay: 0.85s;">
-                    <h3>🔄 Analyze Speech and Language with Google APIs</h3>
-                    <p>Learn how to analyze speech and language using Google APIs and Cloud Functions.</p>
-                    <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/634&sa=D&source=editors&ust=1761585829406730&usg=AOvVaw0wFye90in2MWbBx6y-Zd9-" target="_blank" class="course-link">Start Module 17</a>
-                </div>
-
-                <div class="course-card" style="animation-delay: 0.9s;">
-                    <h3>🖼️ Prompt Design in Vertex AI</h3>
-                    <p>Learn how to design and optimize prompts for Vertex AI models.</p>
-                    <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/976?utm_source%3Dgcaf-site%26utm_medium%3Dwebsite%26utm_campaign%3Darcade-facilitator24&sa=D&source=editors&ust=1761585829406846&usg=AOvVaw3qDfYhyz3nJ_1ugd1Ylb8R" target="_blank" class="course-link">Start Module 18</a>
-                </div>
-
-                <div class="course-card" style="animation-delay: 0.95s;">
-                    <h3>🔧 Develop GenAI Apps with Gemini and Streamlit</h3>
-                    <p>Learn how to develop generative AI applications using Gemini and Streamlit.</p>
-                    <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/978&sa=D&source=editors&ust=1761585829406952&usg=AOvVaw0gQ8oUdz7Sd4cEKz9VJYKU" target="_blank" class="course-link">Start Module 19</a>
-                </div>
-
-                <div class="course-card" style="animation-delay: 1.0s;">
-                    <h3>🏆 Master Cloud Arcade Game: Level 3</h3>
-                    <p>Learn how to create a cloud-based arcade game using Google Cloud technologies.</p>
-                    <a href="https://www.google.com/url?q=https://www.cloudskillsboost.google/course_templates/979&sa=D&source=editors&ust=1761585829407060&usg=AOvVaw2g1H1g1H1g1H1g1H1g1H1g" target="_blank" class="course-link">Start Module 20</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ACHIEVEMENTS PAGE -->
-    <div id="achievements" class="page">
-        <div class="container">
-            <div class="achievement-grid">
-                <div class="achievement-card" style="animation-delay: 0.1s;">
-                    <div class="achievement-icon">⚡</div>
-                    <div class="achievement-content">
-                        <h3>Speed Demon</h3>
-                        <p>Complete 5 courses in 24 hours</p>
-                        <div class="achievement-count">23 Unlocked</div>
-                    </div>
-                </div>
-
-                <div class="achievement-card" style="animation-delay: 0.15s;">
-                    <div class="achievement-icon">⭐</div>
-                    <div class="achievement-content">
-                        <h3>Perfectionist</h3>
-                        <p>Score 100% on all quizzes</p>
-                        <div class="achievement-count">45 Unlocked</div>
-                    </div>
-                </div>
-
-                <div class="achievement-card" style="animation-delay: 0.2s;">
-                    <div class="achievement-icon">🌙</div>
-                    <div class="achievement-content">
-                        <h3>Night Owl</h3>
-                        <p>Complete courses after midnight</p>
-                        <div class="achievement-count">67 Unlocked</div>
-                    </div>
-                </div>
-
-                <div class="achievement-card" style="animation-delay: 0.25s;">
-                    <div class="achievement-icon">🔥</div>
-                    <div class="achievement-content">
-                        <h3>On Fire</h3>
-                        <p>Maintain 7-day streak</p>
-                        <div class="achievement-count">89 Unlocked</div>
-                    </div>
-                </div>
-
-                <div class="achievement-card" style="animation-delay: 0.3s;">
-                    <div class="achievement-icon">🎯</div>
-                    <div class="achievement-content">
-                        <h3>Focused Learner</h3>
-                        <p>Complete all courses in one module</p>
-                        <div class="achievement-count">120 Unlocked</div>
-                    </div>
-                </div>
-
-                <div class="achievement-card" style="animation-delay: 0.35s;">
-                    <div class="achievement-icon">👑</div>
-                    <div class="achievement-content">
-                        <h3>Champion</h3>
-                        <p>Rank in Top 10 globally</p>
-                        <div class="achievement-count">12 Unlocked</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- COMMUNITY PAGE -->
-    <div id="community" class="page">
-        <div class="container">
-            <div class="banner">
-                <div class="banner-icon">💬</div>
-                <div>
-                    <h2>Join Our Community</h2>
-                    <p style="color: var(--text-muted);">Connect with fellow learners, share knowledge, and grow together in our vibrant GDG community!</p>
-                </div>
-            </div>
-
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin: 40px 0;">
-                <div class="achievement-card" style="animation-delay: 0.1s; flex-direction: column; text-align: center;">
-                    <div class="achievement-icon" style="width: 100px; height: 100px; font-size: 50px; margin: 0 auto 20px;">📞</div>
-                    <div class="achievement-content" style="width: 100%;">
-                        <h3 style="font-size: 22px; margin-bottom: 10px;">WhatsApp Community</h3>
-                        <p style="margin-bottom: 20px;">A tech-driven community empowering students to explore Google technologies and open-source.</p>
-                        <a href="https://chat.whatsapp.com/JVFMO1MLQnAAJCeSMra4JF" class="course-link" style="width: 100%; text-align: center; display: inline-block;">GDG - WCE WhatsApp Community</a>
-                    </div>
-                </div>
-
-                <div class="achievement-card" style="animation-delay: 0.3s; flex-direction: column; text-align: center;">
-                    <div class="achievement-icon" style="width: 100px; height: 100px; font-size: 50px; margin: 0 auto 20px;">💼</div>
-                    <div class="achievement-content" style="width: 100%;">
-                        <h3 style="font-size: 22px; margin-bottom: 10px;">LinkedIn</h3>
-                        <p style="margin-bottom: 20px;">Follow us on LinkedIn for industry insights, career opportunities, and event announcements.</p>
-                        <a href="https://www.linkedin.com/company/gdgwce/posts/?feedView=all" class="course-link" style="width: 100%; text-align: center; display: inline-block;">Follow us on LinkedIn</a>
-                    </div>
-                </div>
-
-                <div class="achievement-card" style="animation-delay: 0.1s; flex-direction: column; text-align: center;">
-                    <div class="achievement-icon" style="width: 100px; height: 100px; font-size: 50px; margin: 0 auto 20px;">👥</div>
-                    <div class="achievement-content" style="width: 100%;">
-                        <h3 style="font-size: 22px; margin-bottom: 10px;">WhatsApp Community</h3>
-                        <p style="margin-bottom: 20px;">Get instant updates, share solutions, and connect with the Cloud Study Jams family.</p>
-                        <a href="https://chat.whatsapp.com/GW7SXq9dXG6Ez9cwNjnk0T?mode=wwt" class="course-link" style="width: 100%; text-align: center; display: inline-block;">Cloud Study Jams - Community</a>
-                    </div>
-                </div>
-            </div>
-
-            <div style="text-align: center; margin-top: 50px; padding: 40px; background: linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(6, 182, 212, 0.08)); border: 2px solid rgba(59, 130, 246, 0.25); border-radius: 15px; animation: slideUp 0.6s ease-out;">
-                <h3 style="color: var(--accent-light); margin-bottom: 15px; font-size: 20px;">Why Join Our Community?</h3>
-                <p style="color: var(--text-muted); line-height: 1.8; max-width: 600px; margin: 0 auto;">
-                    🎯 <strong>Network with Peers</strong> - Connect with fellow learners and professionals<br/>
-                    📚 <strong>Share Resources</strong> - Exchange tips, tricks, and learning materials<br/>
-                    🏆 <strong>Celebrate Wins</strong> - Share achievements and motivate each other<br/>
-                    💡 <strong>Get Support</strong> - Ask questions and get help from community experts<br/>
-                    🚀 <strong>Opportunities</strong> - Discover internships, jobs, and collaboration opportunities
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <!-- FOOTER -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <div class="footer-logo">
-                        <div class="logo-icon"><img src="logo2.png" alt="" style="width: 50px; height: 50px;"></div>
-                        <div class="footer-logo-text">GDG WCE</div>
-                    </div>
-                    <p>Google Developer Groups on Campus - Walchand College of Engineering, Sangli. Empowering students with cutting-edge technology and fostering innovation through community-driven learning.</p>
-                </div>
-
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="#" onclick="switchPage('home'); return false;">Home</a></li>
-                        <li><a href="#" onclick="switchPage('leaderboard'); return false;">Leaderboard</a></li>
-                        <li><a href="#" onclick="switchPage('prizes'); return false;">Prizes</a></li>
-                        <li><a href="#" onclick="switchPage('syllabus'); return false;">Syllabus</a></li>
-                        <li><a href="#" onclick="switchPage('achievements'); return false;">Achievements</a></li>
-                        <!-- <li><a href="#" onclick="switchPage('winners'); return false;">Winners</a></li> -->
-                        <li><a href="#" onclick="switchPage('community'); return false;">Community</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h4>Join Community</h4>
-                    <ul>
-                        <li><a href="https://chat.whatsapp.com/GW7SXq9dXG6Ez9cwNjnk0T?mode=wwt">💬 WhatsApp Community</a></li>
-                        <!-- <li><a href="#">🎮 Discord Server</a></li> -->
-                        <li><a href="https://www.linkedin.com/company/gdgwce/posts/?feedView=all">💼 LinkedIn</a></li>
-                        <!-- <li><a href="#">𝕏 Twitter</a></li> -->
-                        <!-- <li><a href="#">⚙️ GitHub</a></li> -->
-                        <li><a href="mailto:olambeshreyash@gmail.com">📧 Email</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <p>© 2025 GDG on Campus - WCE Sangli | Cloud Study Jams. All rights reserved.</p>
-                <p>Powered by <span style="background: linear-gradient(135deg, var(--accent-light), var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 600;">Google Cloud Skills Boost</span></p>
-            </div>
-        </div>
-    </footer>
+        </footer>
     </div>
 
     <script src="script.js"></script>

@@ -15,11 +15,11 @@
         }
 
         body {
-            font-family: 'Jost', sans-serif;
+            font-family: 'Rubik', sans-serif;
             background: var(--primary);
             color: var(--text);
             overflow-x: hidden;
-
+            font-weight: 400;
         }
 
         /* Animated Background */
@@ -155,7 +155,10 @@
         }
 
         .logo-text h1 {
+            font-family: 'Rubik', sans-serif;
             font-size: 30px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
             background: linear-gradient(135deg, var(--accent), var(--cyan));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -241,7 +244,10 @@
         }
 
         .banner h2 {
-            font-size: 26px;
+            font-family: 'Bellefair', serif;
+            font-size: 32px;
+            font-weight: 400;
+            letter-spacing: 0.5px;
             margin-bottom: 12px;
             background: linear-gradient(135deg, var(--accent-light), var(--cyan));
             -webkit-background-clip: text;
@@ -334,8 +340,10 @@
         }
 
         .stat-value {
+            font-family: 'Zen Dots', sans-serif;
             font-size: 32px;
-            font-weight: 700;
+            font-weight: 400;
+            letter-spacing: 1px;
             background: linear-gradient(135deg, #e0e7ff, #a5f3fc);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -385,18 +393,21 @@
         }
 
         .leaderboard-table th {
+            font-family: 'Rubik', sans-serif;
             padding: 18px;
             text-align: left;
             font-weight: 600;
             color: var(--accent-light);
             font-size: 13px;
             text-transform: uppercase;
-            letter-spacing: 1.2px;
+            letter-spacing: 0.8px;
         }
 
         .leaderboard-table td {
             padding: 16px 18px;
             border-bottom: 1px solid rgba(59, 130, 246, 0.15);
+            font-family: 'Rubik', sans-serif;
+            font-weight: 400;
         }
 
         .leaderboard-table tbody tr {
@@ -426,16 +437,22 @@
         }
 
         .name {
-            font-weight: 600;
+            font-family: 'Rubik', sans-serif;
+            font-weight: 500;
+            font-size: 16px;
+            letter-spacing: 0.2px;
             color: #e0e7ff;
         }
 
         .college {
+            font-family: 'Rubik', sans-serif;
             color: var(--text-muted);
             font-size: 14px;
+            font-weight: 400;
         }
 
         .badge-tag, .streak-tag {
+            font-family: 'Rubik', sans-serif;
             display: inline-block;
             padding: 6px 12px;
             border-radius: 20px;
@@ -542,8 +559,10 @@
         }
 
         .prize-tier {
-            font-size: 24px;
-            font-weight: 700;
+            font-family: 'Bellefair', serif;
+            font-size: 28px;
+            font-weight: 400;
+            letter-spacing: 0.5px;
             margin-bottom: 8px;
         }
 
@@ -623,7 +642,10 @@
         }
 
         .achievement-content h3 {
-            font-size: 16px;
+            font-family: 'Bellefair', serif;
+            font-size: 18px;
+            font-weight: 400;
+            letter-spacing: 0.3px;
             margin-bottom: 5px;
             color: #e0e7ff;
         }
@@ -664,9 +686,12 @@
         }
 
         .course-card h3 {
+            font-family: 'Bellefair', serif;
             color: var(--accent-light);
             margin-bottom: 12px;
-            font-size: 18px;
+            font-size: 20px;
+            font-weight: 400;
+            letter-spacing: 0.3px;
         }
 
         .course-card p {
@@ -724,12 +749,13 @@
         }
 
         .footer-section h4 {
+            font-family: 'Bellefair', serif;
             color: var(--accent-light);
             margin-bottom: 18px;
-            font-size: 15px;
-            font-weight: 600;
+            font-size: 17px;
+            font-weight: 400;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
         }
 
         .footer-section ul {
@@ -818,8 +844,10 @@
         }
 
         .footer-logo-text {
+            font-family: 'Rubik', sans-serif;
             font-size: 16px;
-            font-weight: 700;
+            font-weight: 600;
+            letter-spacing: 0.5px;
             background: linear-gradient(135deg, var(--accent-light), var(--cyan));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
