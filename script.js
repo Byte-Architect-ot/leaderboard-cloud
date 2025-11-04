@@ -647,12 +647,12 @@
                 statsData.completionRate + '%'
             ];
 
-            statCards.forEach((card, index) => {
-                const valueElement = card.querySelector('.stat-value');
-                if (valueElement && statValues[index]) {
-                    valueElement.textContent = statValues[index];
-                }
-            });
+            // statCards.forEach((card, index) => {
+            //     const valueElement = card.querySelector('.stat-value');
+            //     if (valueElement && statValues[index]) {
+            //         valueElement.textContent = statValues[index];
+            //     }
+            // });
         }
 
         window.addEventListener('DOMContentLoaded', () => {
