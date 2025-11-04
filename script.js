@@ -597,12 +597,12 @@
                     console.warn('totalParticipants element not found');
                 }
 
-                if (completedParticipantsEl) {
-                    completedParticipantsEl.textContent = completedCount;
-                    console.log('Updated completed participants:', completedCount);
-                } else {
-                    console.warn('completedParticipants element not found');
-                }
+                // if (completedParticipantsEl) {
+                //     completedParticipantsEl.textContent = completedCount;
+                //     console.log('Updated completed participants:', completedCount);
+                // } else {
+                //     console.warn('completedParticipants element not found');
+                // }
 
                 if (avgProgressEl) {
                     avgProgressEl.textContent = avgBadges + ' badges';
