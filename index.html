@@ -7,8 +7,535 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Zen+Dots&family=Bellefair&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --google-blue: #4285f4;
+            --google-red: #ea4335;
+            --google-yellow: #fbbc04;
+            --google-green: #34a853;
+            --dark: #1a1a2e;
+            --accent: #0f3460;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            /* padding: 20px; */
+            /* min-height: 100vh; */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: radial-gradient(circle, rgba(66, 133, 244, 0.1) 1px, transparent 1px);
+            /* background-size: 50px 50px; */
+            animation: gridMove 20s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .milestone-container {
+            /* max-width: 900px; */
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 32px;
+            overflow: hidden;
+            position: relative;
+            z-index: 10;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 10px;
+        }
+
+        .milestone-header {
+            background: linear-gradient(135deg, var(--google-blue) 0%, var(--google-red) 50%, var(--google-yellow) 100%);
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+            height: 280px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .milestone-header::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255,255,255,0.2), transparent);
+            border-radius: 50%;
+            top: -200px;
+            right: -100px;
+            animation: orbFloat 8s ease-in-out infinite;
+        }
+
+        .milestone-header::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255,255,255,0.15), transparent);
+            border-radius: 50%;
+            bottom: -150px;
+            left: -80px;
+            animation: orbFloat 6s ease-in-out infinite reverse;
+        }
+
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(30px, -30px) scale(1.1); }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .milestone-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px 24px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: white;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            animation: badgeGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes badgeGlow {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(255, 255, 255, 0.6), 0 0 60px rgba(66, 133, 244, 0.4);
+            }
+        }
+
+        .milestone-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 42px;
+            font-weight: 700;
+            color: white;
+            margin: 20px 0;
+            line-height: 1.2;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            animation: titleReveal 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes titleReveal {
+            0% {
+                opacity: 0;
+                transform: translateY(30px) scale(0.9);
+                filter: blur(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 12px 28px;
+            border-radius: 100px;
+            margin-top: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            background: var(--google-green);
+            border-radius: 50%;
+            animation: statusPulse 2s ease-in-out infinite;
+            box-shadow: 0 0 0 0 rgba(52, 168, 83, 0.7);
+        }
+
+        @keyframes statusPulse {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(52, 168, 83, 0.7);
+            }
+            50% {
+                box-shadow: 0 0 0 10px rgba(52, 168, 83, 0);
+            }
+        }
+
+        .status-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            color: var(--dark);
+            font-size: 16px;
+        }
+
+        .milestone-content {
+            padding: 50px 40px;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 35px;
+        }
+
+        .info-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 25px;
+            border-radius: 20px;
+            border-left: 5px solid var(--google-blue);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--google-blue), var(--google-red));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-8px) rotate(2deg);
+            box-shadow: 0 20px 40px rgba(66, 133, 244, 0.3);
+            border-left-color: var(--google-green);
+        }
+
+        .info-card:hover::before {
+            opacity: 0.05;
+        }
+
+        .info-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+            display: block;
+            animation: iconBounce 2s ease-in-out infinite;
+        }
+
+        @keyframes iconBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .info-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #666;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .info-value {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--dark);
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 25px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .section-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--google-blue), var(--google-green));
+            border-radius: 10px;
+            animation: barGrow 2s ease-in-out infinite;
+        }
+
+        @keyframes barGrow {
+            0%, 100% { height: 100%; }
+            50% { height: 120%; }
+        }
+
+        .prize-showcase {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(66, 133, 244, 0.1);
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .prize-showcase:hover {
+            transform: scale(1.02);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.15);
+            border-color: var(--google-green);
+        }
+
+        .prize-header {
+            background: linear-gradient(135deg, var(--google-yellow), var(--google-green));
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .prize-header::before {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255,255,255,0.3), transparent);
+            border-radius: 50%;
+            top: -100px;
+            right: -50px;
+            animation: headerOrb 5s ease-in-out infinite;
+        }
+
+        @keyframes headerOrb {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-20px, 20px); }
+        }
+
+        .prize-tier {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 32px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .prize-count {
+            font-size: 16px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.95);
+            position: relative;
+            z-index: 1;
+        }
+
+        .prize-body {
+            padding: 35px;
+        }
+
+        .prize-requirement {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            padding: 18px 24px;
+            border-radius: 16px;
+            margin-bottom: 25px;
+            border-left: 4px solid var(--google-blue);
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 15px;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .benefit-item {
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+            padding: 18px 20px;
+            border-radius: 16px;
+            border: 2px solid #e9ecef;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 14px;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .benefit-item:hover {
+            background: linear-gradient(135deg, var(--google-blue), var(--google-green));
+            color: white;
+            transform: translateX(10px) scale(1.05);
+            border-color: transparent;
+            box-shadow: 0 10px 30px rgba(66, 133, 244, 0.4);
+        }
+
+        .benefit-icon {
+            font-size: 24px;
+            transition: transform 0.4s ease;
+        }
+
+        .benefit-item:hover .benefit-icon {
+            transform: rotate(360deg) scale(1.2);
+        }
+
+        .action-button {
+            width: 100%;
+            background: linear-gradient(135deg, var(--google-blue), var(--google-red));
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            border-radius: 16px;
+            font-size: 18px;
+            font-weight: 800;
+            font-family: 'Space Grotesk', sans-serif;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 10px 30px rgba(66, 133, 244, 0.4);
+        }
+
+        .action-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .action-button:hover::before {
+            left: 100%;
+        }
+
+        .action-button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 45px rgba(66, 133, 244, 0.6);
+        }
+
+        .action-button:active {
+            transform: translateY(-2px);
+        }
+
+        .urgency-banner {
+            background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+            padding: 30px;
+            border-radius: 20px;
+            margin-top: 35px;
+            text-align: center;
+            border: 3px solid var(--google-yellow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .urgency-banner::before {
+            content: '⚡';
+            position: absolute;
+            font-size: 120px;
+            opacity: 0.08;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: lightningPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes lightningPulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.2); }
+        }
+
+        .urgency-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .urgency-highlight {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--google-red), var(--google-yellow));
+            color: white;
+            padding: 12px 30px;
+            border-radius: 100px;
+            font-size: 18px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 25px rgba(234, 67, 53, 0.4);
+            animation: urgencyShake 3s ease-in-out infinite;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes urgencyShake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-3px); }
+            20%, 40%, 60%, 80% { transform: translateX(3px); }
+        }
+
+        @media (max-width: 768px) {
+            .milestone-title {
+                font-size: 28px;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .milestone-content {
+                padding: 35px 25px;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    /* </style>
+    <style> */
 
         * {
             margin: 0;
@@ -806,7 +1333,88 @@
         </nav>
 
         <div id="home" class="page active">
-            <div class="container">
+            <div class="container mb-5">
+                <div class="milestone-container">
+            <!-- Header Section -->
+            <div class="milestone-header">
+                <div class="header-content">
+                    <div class="milestone-badge">
+                        <span>🏆</span> ACHIEVEMENT UNLOCKED
+                    </div>
+                    <h1 class="milestone-title">Cloud Campaign Milestone</h1>
+                    <div class="status-indicator">
+                        <div class="status-dot"></div>
+                        <span class="status-text">TIER 3 ACHIEVED!</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Section -->
+            <div class="milestone-content">
+                <div class="content-grid">
+                    <div class="info-card">
+                        <span class="info-icon">👥</span>
+                        <div class="info-title">Active Learners</div>
+                        <div class="info-value">50+</div>
+                    </div>
+                    <div class="info-card">
+                        <span class="info-icon">🎯</span>
+                        <div class="info-title">Current Status</div>
+                        <div class="info-value">Tier 3</div>
+                    </div>
+                </div>
+
+                <p style="font-size: 16px; line-height: 1.8; color: #555; margin-bottom: 35px; text-align: center;">
+                    The <strong style="color: var(--google-blue);">Cloud Campaign – Cloud Study Jam by GDG WCE</strong> showcases growing passion for cloud technologies and innovation at WCE.
+                </p>
+
+                <!-- Prize Section -->
+                <div class="section-title">🎁 Rewards & Benefits</div>
+
+                <div class="prize-showcase">
+                    <div class="prize-header">
+                        <div class="prize-tier">Tier 3 - Starter</div>
+                        <div class="prize-count">Next 50 Students</div>
+                    </div>
+                    <div class="prize-body">
+                        <div class="prize-requirement">
+                            ✅ Complete all 20 courses + Send proof in WhatsApp group
+                        </div>
+
+                        <div class="benefits-grid">
+                            <div class="benefit-item">
+                                <span class="benefit-icon">🎨</span>
+                                <span>Stickers & Goodies</span>
+                            </div>
+                            <div class="benefit-item">
+                                <span class="benefit-icon">📜</span>
+                                <span>Participation Certificate</span>
+                            </div>
+                            <div class="benefit-item">
+                                <span class="benefit-icon">🏅</span>
+                                <span>Digital Badges</span>
+                            </div>
+                            <div class="benefit-item">
+                                <span class="benefit-icon">🎯</span>
+                                <span>AI GDG OC Events Access</span>
+                            </div>
+                            <div class="benefit-item">
+                                <span class="benefit-icon">🎁</span>
+                                <span>Completion Bonus</span>
+                            </div>
+                        </div>
+
+                        <button class="action-button">Join Top 50!</button>
+                    </div>
+                </div>
+
+                <!-- Urgency Banner -->
+                <div class="urgency-banner">
+                    <div class="urgency-text">⚡ Complete Fast to Be in Top 100! ⚡</div>
+                    <div class="urgency-highlight">🔥 Start Now</div>
+                </div>
+            </div>
+        </div>
                 <div class="banner">
                     <div class="banner-icon">🏅</div>
                     <div>
